@@ -1,6 +1,6 @@
 # Internal QA and judging rubric
 
-**Evidence class: internal self-review, not independent human judging.** This rubric was prepared by an AI collaborator from the supplied brief and inspected source. Scores reflect design/readiness judgment only. They are not user-test results, organizer scores, a security audit or proof of release quality. The root build's executable verification report takes precedence over these provisional assessments.
+**Evidence class: internal self-review, not independent human judging.** This rubric was prepared by an AI collaborator from the supplied brief and inspected source. Scores reflect an initial design/readiness judgment only. Executed release evidence below is newer than the provisional score. They are not user-test results, organizer scores, a security audit or proof of release quality. The root build's executable verification report takes precedence over these provisional assessments.
 
 ## Provisional design assessment
 
@@ -16,28 +16,31 @@
 
 Weighted provisional design score: **3.75 / 5 (75 / 100)**. Do not use this as an independent endorsement. Improve the lowest dimensions through actual verification rather than increasing the claimed score.
 
-## Release gates to execute
+## Executed release gates
 
-Mark each item only after observing it in the exact release build. Use PASS / FAIL / NOT RUN, with a test command, screenshot or recording reference. A source implementation alone is not a pass.
+Evidence: `TEST_REPORT.md` and `HEADLESS_TEST_LOG.txt` (native Godot 4.5, **4,945 assertions / 0 failures**); `BROWSER_QA.md` (real Chrome Web export at localhost); `INDEPENDENT_REVIEW.md` (separate AI-assisted review, approximately 8/10). This supersedes the earlier NOT RUN checklist. Native assertions and browser observations are deliberately distinguished.
 
-| Check | Required observation | Initial status |
+| Check | Result | Evidence boundary |
 | --- | --- | --- |
-| Clean boot | Main menu renders without missing resources or console errors | NOT RUN |
-| Onboarding | Fresh profile sees tutorial; skip and replay work | NOT RUN |
-| Campaign reachability | All three records and hatch reachable on each of ten maps | NOT RUN |
-| Core controls | Move, sneak, reveal sealed names, collect, interact, pulse and hide work in exported browser build | NOT RUN |
-| Resource tradeoffs | Pulse costs 18 charge and reveals/stuns; pickup restores 8; station restores resources and alerts shadows | NOT RUN |
-| Modifier progression | Timed low visibility, alarms/countdown, residue and multiple pursuers match displayed rule | NOT RUN |
-| Damage/retry | Damage has feedback; defeat and retry restore playable state | NOT RUN |
-| Pause | Movement, AI and resource timers stop while paused | NOT RUN |
-| Persistence | Continue works after reload on the same origin; demo does not overwrite campaign | NOT RUN |
-| Final choice | Both endings are reachable and return to a usable menu | NOT RUN |
-| Bilingual interface | Every screen, objective, settings label and ending changes language | NOT RUN |
-| Storage failures | Invalid or missing saves fail gracefully | NOT RUN |
-| Focus and viewport | Browser click/focus and resizing preserve input and readable UI | NOT RUN |
-| Audio | Assets load, volumes behave, no critical warning depends on hearing alone | NOT RUN |
-| Packaging | Export opens from HTTP with all required files present | NOT RUN |
-| Human playtest | New English and Korean players can explain and complete onboarding | NOT RUN |
+| Clean boot | PASS (Chrome); PASS (macOS smoke) | Real exported web menu; unsigned universal Mac headless startup exited 0 |
+| Onboarding | PASS (native); PARTIAL (Chrome) | Native six-page construction/flow; browser first guide and skip, not every page |
+| Campaign reachability | PASS (native); PARTIAL (Chrome) | All ten authored routes with enemies/hazards; Ward 1 completed in Chrome |
+| Core controls | PASS (native); PARTIAL (Chrome) | Native movement/sneak/pulse/hiding checks; physical browser movement, SPACE reveal and E collection/hatch observed |
+| Resource tradeoffs | PASS (native) | Charge costs, reveal/stun, pickup, station refill/cooldown and attraction verified |
+| Modifier progression | PASS (native) | Per-ward simulation checks; not a human balance assessment |
+| Damage/retry | PASS (native state checks) | Contact, grace interval, failure and restart state tested; no full browser defeat/retry claim |
+| Pause | PASS (native); PASS (Chrome) | Native state frozen with settings and language; browser pause/settings observed |
+| Persistence | PASS (native); PARTIAL (Chrome) | Native fields, endings, demo isolation; browser profile/Continue survives same-origin reload |
+| Final choice | PASS (native UI/state) | Both endings construct and persist; not reached through Chrome in this session |
+| Bilingual interface | PASS (native layout); PARTIAL (Chrome) | Both-language screen/label bounds tested; selected Korean labels visibly readable in browser |
+| Storage failures | PASS (native bounded values); PARTIAL | Invalid values sanitized; forced crash/storage eviction not tested |
+| Focus and viewport | PARTIAL (Chrome) | Physical input captured; broad resizing/fullscreen/multi-browser coverage not established |
+| Audio | PARTIAL | Original-audio gameplay video exists; suite disables ambience fixture, no human mix review |
+| Packaging | PASS (Chrome/local HTTP); PARTIAL (native platforms) | Web ran; Mac startup smoke passed; Windows/Linux generated, not executed |
+| Public deployment | PARTIAL | Initial GitHub Pages CI succeeded; subsequent final-patch deployment pending at record time |
+| Human playtest | NOT RUN | No first-player study or native Korean-language review claimed |
+
+The automated browser profile was `Q` after a typing automation issue. Short-name flow works; Korean IME and complex name entry were not tested. The macOS startup check is not notarization or a GUI playthrough. See the source reports for reproduction and cleanup details.
 
 ## Risk priorities
 

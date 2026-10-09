@@ -11,4 +11,4 @@ PLAYTHROUGH ward=07 seconds=13.32 resolve=100.0 charge=60.7 records=3
 PLAYTHROUGH ward=08 seconds=12.15 resolve=100.0 charge=61.5 records=3
 PLAYTHROUGH ward=09 seconds=16.33 resolve=100.0 charge=40.6 records=3
 PLAYTHROUGH ward=10 seconds=15.73 resolve=92.4 charge=41.0 records=3
-RESULT: 4545 checks, 0 failures
+RESULT: 4945 checks, 0 failures

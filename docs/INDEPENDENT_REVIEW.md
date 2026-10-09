@@ -1,6 +1,6 @@
 # Independent game-jam review
 
-Review based on source inspection, the 4,545-assertion native headless suite, ten deterministic active-enemy objective routes, and direct inspection of the captured title/gameplay images. These are **review judgments**, not an official competition rubric or external judge score. No official scored rubric was supplied.
+Review based on source inspection, the 4,945-assertion native headless suite, ten deterministic active-enemy objective routes, and direct inspection of the captured title/gameplay images. These are **review judgments**, not an official competition rubric or external judge score. No official scored rubric was supplied.
 
 | Inferred criterion | Score / 10 | Assessment |
 |---|---:|---|

@@ -1,44 +1,57 @@
-# Two-minute video: narration and shot list
+# Two-minute narration for the supplied gameplay montage
 
-**Recording target:** approximately 2:00 at a calm 135-145 words per minute. Read the narration verbatim. Capture real gameplay from the final exported build. Keep UI legible at 1080p; avoid replacing real play with mock screens. The final duration depends on delivery, so rehearse once and trim pauses rather than rushing.
+**Narrator:** Shivam Gupta. Read the English narration verbatim. The supplied `AFTERHOURS_GAMEPLAY.mp4` is 119.833 seconds, 1280×720, 30 fps, H.264/AAC, with original game audio and no spoken voiceover. This is a montage selecting Wards 1, 3 and 8, followed by editorial ending previews; it is not an uninterrupted full-campaign playthrough.
+
+The 13 narration blocks below follow the actual `RECORDING_GUIDE.md` sequence. Companion English/Korean `.srt` files are draft narration captions, not a transcript of existing speech. Timings approximate the 120-second timeline and must be aligned to Shivam's recorded delivery before final caption export. The Korean draft has not had native-speaker review.
 
 ## Verbatim narration
 
 My name is Shivam Gupta, and this is AFTERHOURS: The Tenth Prescription.
 
-The pharmacy closed ten years ago. Tonight, its lights came back on. A receipt printed your name, beside ten prescriptions that were never finished.
+The pharmacy closed ten years ago. Tonight, its lights came back on. Your light reveals sealed names, but it is also what keeps the shadows back.
 
-This is a pixel horror game about what happens to people when their names disappear from the records.
+Explore each ward, reveal three prescriptions with Space, then collect them with E. The same pulse stuns nearby shadows. Every pulse costs battery, so recovering a name and protecting yourself become the same difficult decision.
 
-Your task is clear. Explore each ward, reveal three sealed prescriptions with your light, collect them, and return them to the dispensing hatch. But something is still waiting inside.
+Bring every record to the hatch, and another piece of the pharmacy's story returns.
 
-The same light pulse reveals a name and stuns nearby shadows. You can also sneak past a shadow or hide in a cabinet. Charging restores your light and some composure, but the noise attracts pursuit. Safety always comes with a decision.
+Each of the ten authored wards introduces a new survival rule.
 
-Across ten wards, the danger changes. Visibility drops in timed cycles. Alarms draw shadows toward you. Residue makes familiar routes hazardous. Later floors combine these threats, so survival depends on what you have learned.
+Here, the alarm draws the shadows toward you. Watch the countdown and plan your route. Quieter movement, hiding places and charging stations give you options beyond the route shown here. Safety always comes with a decision.
 
-The experience includes English and Korean, a first-time tutorial, local saved progress, and a separate short demo. The full ten-ward campaign is accessible in this game-jam version. It runs in a desktop browser, with no paid service needed to play.
+The records are not a shopping list. They preserve people the world has forgotten.
 
-The story changes the meaning of the chase. These shadows are carrying the names of people the world forgot. Your sister, the pharmacy's last owner, refused to let those names disappear. At the end, you decide what the pharmacy remembers.
+English and Korean carry the same story, objectives and survival instructions.
 
-The commercial direction is a future expanded premium game, introduced through a free browser prologue. That is a hypothesis we will test with players, not a claim of proven demand.
+In this later ward, timed darkness and hazardous residue change familiar routes. Light still reveals the way forward. The full game combines these threats across ten distinct layouts.
+
+Recovered memories stay in your archive. Your sister, the last pharmacist, refused to let these names disappear. Local progress lets you return to finish what she began.
+
+This is a preview of the final choice: what should the pharmacy remember?
+
+The jam version includes all ten wards. An expanded premium game is a future hypothesis, shaped by player feedback, rather than a promise of proven demand.
 
 AFTERHOURS asks one question: when someone disappears from the records, who keeps the light on?
 
-## Shot list
+## Shot list matching the existing MP4
 
-| Time | Capture | Direction |
+| Time | Existing footage | Narration block |
 | --- | --- | --- |
-| 0:00-0:09 | Title screen with logo and storefront | Hold still briefly; creator lower third: Shivam Gupta |
-| 0:09-0:20 | Story opening / receipt | Let the text become readable before cutting |
-| 0:20-0:30 | First ward, record pickup | Show Space revealing a sealed name, then E interaction and objective counter increasing |
-| 0:30-0:43 | Hatch, then a shadow entering view | Show the core route, not a confusing montage |
-| 0:43-0:59 | Sneak, cabinet, pulse, recharge | Four short real actions; keep HUD visible |
-| 0:59-1:17 | Later wards: darkness, alarm, residue, multiple shadows | Match each mechanic to the spoken sentence |
-| 1:17-1:34 | Language switch, tutorial, continue, demo menu | Use genuine final-build screens; do not expose private data |
-| 1:34-1:49 | Memory card and final choice | Show enough to establish emotion; avoid lingering on the entire ending |
-| 1:49-1:57 | Clean gameplay shot / title | Overlay “Expanded premium edition: proposed direction” |
-| 1:57-2:05 | Title with tagline | Let the final question breathe; fade audio gently |
+| 00:00:00-00:00:06 | Title | 1 |
+| 00:00:06-00:00:17 | Pulse guide, then Ward 1 briefing | 2 |
+| 00:00:17-00:00:33 | Ward 1 actual gameplay | 3 |
+| 00:00:33-00:00:39 | Earned Ward 1 memory | 4 |
+| 00:00:39-00:00:44 | Ward 3 briefing | 5 |
+| 00:00:44-00:01:00 | Ward 3 actual alarm gameplay | 6 |
+| 00:01:00-00:01:06 | Earned Ward 3 memory | 7 |
+| 00:01:06-00:01:11 | Korean Ward 8 briefing | 8 |
+| 00:01:11-00:01:26 | Korean Ward 8 actual gameplay | 9 |
+| 00:01:26-00:01:37 | Earned Ward 8 memory, then archive | 10 |
+| 00:01:37-00:01:42 | Editorial preview of final choice | 11 |
+| 00:01:42-00:01:52 | Editorial preview of remember ending | 12 |
+| 00:01:52-00:01:59 | Closing title | 13 |
 
-## Capture checklist
+## Optional additional human capture
 
-Use a desktop browser at 1280×720 or larger. Record at 1080p if possible. Keep music below the voice, retain a few sound cues, and add accurate English captions. A Korean subtitle track is preferable to tiny dual-language captions. No webcam is required. Do one uncut practice run before capture. Narration describes the shipped scope; remove any sentence whose corresponding final feature is not present.
+The supplied montage does not demonstrate cabinet entry, recharging, a language-toggle click or a settings walkthrough. If a longer narrated version needs those actions on screen, record them separately from the final build and label the edit honestly. Do not describe this existing montage as showing them. No extra capture is required to use the current shot-matched narration.
+
+Keep the voice above the music, retain a few game sound cues, and rehearse before recording. English and Korean SRT tracks can be provided separately rather than placing two dense caption languages on one screen. The narration credits Shivam; the project assistance disclosure remains in the README and submission materials.

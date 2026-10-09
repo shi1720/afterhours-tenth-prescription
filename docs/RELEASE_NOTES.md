@@ -2,7 +2,7 @@
 
 ## Included scope
 
-Ten sequential wards, three sealed records per ward and thirty fictional names across ten authored layouts, a dispensing hatch objective, defensive light pulse, hiding cabinets, charging stations, escalating threats and a final story choice. The intended interface includes English/Korean selection, local profiles, tutorial, campaign, separate demo, pause, retry and settings. Verify the final build against `QA_SELF_REVIEW.md`; documentation is not proof that every item passed.
+Ten sequential wards, three sealed records per ward and thirty fictional names across ten authored layouts, a dispensing hatch objective, defensive light pulse, hiding cabinets, charging stations, escalating threats and a final story choice. The interface includes English/Korean selection, local profiles, tutorial, campaign, separate demo, pause, retry and settings. Read `QA_SELF_REVIEW.md`, `TEST_REPORT.md` and `BROWSER_QA.md` for executed evidence and exact limits.
 
 ## Controls
 
@@ -17,6 +17,15 @@ Headphones are optional; objectives and resource information are visual. The hor
 ## Storage and account boundaries
 
 A profile is a local name and save slot, not an authenticated online identity. There are no passwords, cloud saves or cross-device synchronization. Browser private mode, cleared site data, storage eviction or a different origin can reset progress. Desktop persistence uses the application's Godot user-data directory. Never use the profile name to store sensitive information.
+
+## Executed release evidence
+
+- Godot 4.5 native headless suite: 4,945 assertions, 0 failures, clean exit, including all ten active-enemy objective routes.
+- Real Chrome Web export at localhost: clean load, local profile and reload persistence, guide/skip, physical movement, all three Ward 1 reveal/collect actions and hatch completion, pause/settings, Korean switch and high visibility.
+- Universal unsigned macOS export: headless startup smoke check exited 0 without errors. Windows/Linux exports were generated but not executed on this host.
+- Actual two-minute gameplay video: `AFTERHOURS_GAMEPLAY.mp4`, with original audio. It has no spoken human narration.
+
+Both public Pages deployments succeeded. The refined public title/menu was visually verified in Chrome; the localhost playthrough also verified Ward 2 checkpoint continuation after reload. The final packaged macOS startup smoke check passed again after the label patch. macOS signing/notarization, Windows/Linux execution, broad browser coverage, native Korean review and first-player balance remain outside the established evidence.
 
 ## Verification boundaries
 

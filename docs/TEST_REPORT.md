@@ -1,6 +1,6 @@
 # AFTERHOURS — independent integration QA
 
-**Run date:** 9 October 2026. **Engine:** Godot 4.5 stable (`876b29033`). **Platform:** macOS, headless native engine. **Result:** **4,545 assertions, 0 failures, exit code 0.** The final run produced no engine error or leak warnings.
+**Run date:** 9 October 2026. **Engine:** Godot 4.5 stable (`876b29033`). **Platform:** macOS, headless native engine. **Result:** **4,945 assertions, 0 failures, exit code 0.** The final run produced no engine error or leak warnings.
 
 The reproducible suite is `tests/test_game.gd`; complete captured output is `docs/HEADLESS_TEST_LOG.txt`.
 
@@ -23,6 +23,7 @@ Use the installed Godot executable in place of `Godot`. Run from the project dir
 | Pulse | Costs 18 charge; nearby enemies are stunned for 4.5 seconds. Stunned enemies remain still. Cooldown rejects repeated activation; insufficient charge and hiding reject pulses. |
 | Hiding and damage | Cabinet interaction enters/exits hiding. Hiding prevents movement and contact damage. Contact deals damage outside hiding and grants a grace interval. Lethal contact emits failure once and stops simulation. |
 | Hazards and resource management | Active/inactive hazard phases and gentle damage scaling verified. Filament ward drains 1.25 charge/second. Charging restores charge and 25 resolve; station cooldown prevents repeated refill. |
+| Text layout regression | Both languages and every guide page plus application screens check direct visible label rectangles stay within 1280×720 and shaped line heights fit. This caught oversized cached minimum heights caused by assigning text before initial label size; corrected helper passes. Scrollable archive content is excluded from fixed viewport bounds. |
 | First run and tutorial | First campaign and ward selection both require local profile. Named first-time player sees the six-page guide. All six pages construct; completing the guide enters briefing. |
 | Application flow | English and Korean title, profile, guide, ward select, archive, settings, credits, failure, demo end, choice and both endings construct. This checks UI construction, not visual quality. |
 | Pause | Physical ESC key pauses; player position and resources remain frozen. Pause settings remain frozen. Switching language preserves the return-to-pause route. ESC resumes the existing ward state. |
@@ -58,7 +59,7 @@ An earlier fast headless shutdown produced an ambience playback/resource warning
 - This suite did **not** launch a real web browser or exercise the exported WebAssembly build. Browser input capture, audio-unlock gestures, IndexedDB persistence, resize/fullscreen behavior and multiple-browser compatibility require separate browser verification.
 - Ambience playback is disabled in the application fixture. Listening quality, mix, browser audio activation and long-session playback require a human/audio-capable run.
 - Native input events are invoked through the application's handler; OS-level keyboard focus, controller support and mobile/touch behavior are not tested here.
-- The UI is constructed in both languages, but headless assertions cannot judge clipping, font rendering, contrast or aesthetics. Visual screenshot inspection is a separate QA activity.
+- The UI is constructed in both languages and label rectangles/line heights are checked, but headless assertions cannot judge glyph rendering, visual overlap, contrast or aesthetics. Visual screenshot inspection is a separate QA activity.
 - The test pilot has perfect knowledge. It does not establish first-player comprehension, Korean translation fluency, horror impact, human difficulty balance or commercial demand. Native Korean review and human playtesting remain valuable.
 - Save restoration is tested after normal completion. Crash/forced termination during the fixture-save window is not covered. Cloud sync and authentication are outside this local-profile game's implemented scope.
 

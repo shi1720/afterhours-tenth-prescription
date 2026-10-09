@@ -9,7 +9,7 @@ A complete ten-ward pixel horror campaign built in Godot. You return to a pharma
 
 ## Play
 
-Open the hosted web build in a desktop browser, click inside the game, and create a local profile. Choose **Begin the night** (or **Continue shift** with an existing profile) for the ten-ward campaign, or the separate demo for a short introduction. Follow the first-launch tutorial; it can be skipped and replayed. English and Korean are available in the interface.
+Play [the browser build](https://shi1720.github.io/afterhours-tenth-prescription/) in a desktop browser, click inside the game, and create a local profile. Choose **Begin the night** (or **Continue shift** with an existing profile) for the ten-ward campaign, or the separate demo for a short introduction. Follow the first-launch tutorial; it can be skipped and replayed. English and Korean are available in the interface.
 
 | Key | Action |
 | --- | --- |
@@ -46,6 +46,20 @@ python3 -m http.server 8080 --directory export/web
 
 Open `http://localhost:8080`. Keep all generated `.wasm`, `.pck`, JavaScript and HTML files together. If a threaded Web export is used, the host must supply the required cross-origin isolation headers; the release should prefer a non-threaded build for simple static hosting. Refer to the exact checked-in export preset when rebuilding.
 
+## Build and verification
+
+The native Godot 4.5 integration suite completed **4,945 assertions with 0 failures**, including active-enemy routes through all ten wards. A real Chrome session completed Ward 1 in the exported Web build and checked profile persistence, pause/settings, Korean labels and high visibility. An unsigned universal macOS export passed a headless startup smoke check. Windows/Linux exports are generated artifacts, with execution on those platforms still unverified.
+
+```sh
+godot --headless --path . --editor --quit
+godot --headless --path . --script tests/test_game.gd
+godot --headless --path . --export-release Web export/web/index.html
+```
+
+Run the suite outside an active play session: it temporarily uses fixture saves and restores the prior save on normal completion. Read [the test report](docs/TEST_REPORT.md), [browser acceptance record](docs/BROWSER_QA.md) and [separate review](docs/INDEPENDENT_REVIEW.md) for evidence and limitations. These are automated/AI-assisted checks, not independent human endorsement.
+
+Watch [the two-minute gameplay recording](docs/AFTERHOURS_GAMEPLAY.mp4), or read [the press kit](docs/AFTERHOURS_PRESS_KIT.pdf). [Release downloads](https://github.com/shi1720/afterhours-tenth-prescription/releases) are the place to find published packages; availability depends on the actual published release.
+
 ## Saves and privacy
 
 The profile is a name attached to a local campaign save. **They are not secure online accounts or cloud authentication.** The game does not ask for a password. Desktop saves use Godot's application data directory; web saves use browser storage for the current origin. Changing browser or hostname, private browsing, clearing site data, or storage eviction can lose progress. There is no cloud synchronization. Use the same browser and origin to continue a shift.
@@ -63,6 +77,6 @@ Read [the documentation index](docs/README.md) for the submission kit. The jam b
 
 Created and directed by **Shivam Gupta**, with AI-assisted implementation, writing, procedural art and sound production. Attribution does not claim specific manual programming work. Disclose assistance wherever the jam's rules require it; this repository does not establish eligibility under rules that were not supplied.
 
-This is a release candidate for a game jam, with an explicit finite scope. Source inspection and automated checks do not certify production readiness on every device. See [release notes](docs/RELEASE_NOTES.md) and [QA self-review](docs/QA_SELF_REVIEW.md) for limitations and verification boundaries.
+This is a release candidate for a game jam, with an explicit finite scope. Executed checks support the release candidate on the tested paths; they do not certify production readiness on every device. See [release notes](docs/RELEASE_NOTES.md) and [QA self-review](docs/QA_SELF_REVIEW.md) for limitations and verification boundaries.
 
 Godot and bundled fonts retain their respective licenses. Project code/art are copyright 2026 Shivam Gupta unless a file states otherwise; no open-source license is implied.
