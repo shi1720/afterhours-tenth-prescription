@@ -1,0 +1,14 @@
+Godot Engine v4.5.stable.official.876b29033 - https://godotengine.org
+
+AFTERHOURS deterministic simulation and application integration QA
+PLAYTHROUGH ward=01 seconds=13.97 resolve=100.0 charge=24.2 records=3
+PLAYTHROUGH ward=02 seconds=14.53 resolve=100.0 charge=59.8 records=3
+PLAYTHROUGH ward=03 seconds=13.83 resolve=100.0 charge=60.3 records=3
+PLAYTHROUGH ward=04 seconds=15.15 resolve=100.0 charge=59.4 records=3
+PLAYTHROUGH ward=05 seconds=16.35 resolve=100.0 charge=58.6 records=3
+PLAYTHROUGH ward=06 seconds=13.95 resolve=100.0 charge=52.6 records=3
+PLAYTHROUGH ward=07 seconds=13.32 resolve=100.0 charge=60.7 records=3
+PLAYTHROUGH ward=08 seconds=12.15 resolve=100.0 charge=61.5 records=3
+PLAYTHROUGH ward=09 seconds=16.33 resolve=100.0 charge=40.6 records=3
+PLAYTHROUGH ward=10 seconds=15.73 resolve=92.4 charge=41.0 records=3
+RESULT: 4545 checks, 0 failures

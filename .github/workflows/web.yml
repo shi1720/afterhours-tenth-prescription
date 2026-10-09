@@ -1,0 +1,60 @@
+name: Test, build, and publish web game
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: web-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Cache official Godot engine and web templates
+        id: cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            .ci/godot
+            ~/.local/share/godot/export_templates/4.5.stable
+          key: godot-4.5-stable-web-linux-v1
+      - name: Install Godot 4.5 from official release
+        if: steps.cache.outputs.cache-hit != 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p .ci/godot "$HOME/.local/share/godot/export_templates/4.5.stable"
+          curl -fLsS --retry 3 -o /tmp/godot.zip https://github.com/godotengine/godot/releases/download/4.5-stable/Godot_v4.5-stable_linux.x86_64.zip
+          unzip -q /tmp/godot.zip -d .ci/godot
+          curl -fLsS --retry 3 -o /tmp/templates.tpz https://github.com/godotengine/godot/releases/download/4.5-stable/Godot_v4.5-stable_export_templates.tpz
+          unzip -j -q /tmp/templates.tpz 'templates/web_nothreads_release.zip' 'templates/web_nothreads_debug.zip' -d "$HOME/.local/share/godot/export_templates/4.5.stable"
+      - name: Import, integration tests, and single-thread web export
+        shell: bash
+        run: |
+          set -euo pipefail
+          GODOT_BIN=.ci/godot/Godot_v4.5-stable_linux.x86_64
+          "$GODOT_BIN" --headless --path . --editor --import --quit
+          "$GODOT_BIN" --headless --path . --script tests/test_game.gd
+          mkdir -p export/web
+          "$GODOT_BIN" --headless --path . --export-release Web export/web/index.html
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: export/web
+  deploy:
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy browser build
+        id: deployment
+        uses: actions/deploy-pages@v4

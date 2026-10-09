@@ -1,0 +1,8 @@
+.godot/
+.DS_Store
+build/
+*.zip
+*.dmg
+export/
+*.avi
+.ci/
