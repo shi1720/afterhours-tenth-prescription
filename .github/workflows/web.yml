@@ -2,6 +2,15 @@ name: Test, build, and publish web game
 on:
   push:
     branches: [main]
+    paths:
+      - "scripts/**"
+      - "assets/**"
+      - "tests/test_game.gd"
+      - "project.godot"
+      - "main.tscn"
+      - "export_presets.cfg"
+      - "web_shell.html"
+      - ".github/workflows/web.yml"
   pull_request:
   workflow_dispatch:
 permissions:

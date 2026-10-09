@@ -26,12 +26,21 @@ func fresh(ward: Node, index: int = 0) -> void:
 	ward.move_override = Vector2.ZERO
 	ward.set_process(false)
 
+func check_labels(app: Node, context: String) -> void:
+	# Direct UI labels; archive content is deliberately scrollable and excluded.
+	for child in app.ui.get_children():
+		if child is Label and child.visible:
+			var rect: Rect2 = child.get_global_rect()
+			check(rect.position.x >= -1 and rect.position.y >= -1 and rect.end.x <= 1281 and rect.end.y <= 721, context+" label inside viewport "+str(rect)+": "+child.text.left(32))
+			check(child.get_line_count()*child.get_line_height() <= rect.size.y+2, context+" label lines fit height: "+child.text.left(32))
+
 func stop_audio(node: Node) -> void:
 	if node is AudioStreamPlayer: node.stop()
 	for child in node.get_children(): stop_audio(child)
 
 func run() -> void:
 	print("AFTERHOURS deterministic simulation and application integration QA")
+	root.size = Vector2i(1280,720)
 	var save_path := "user://afterhours.cfg"
 	had_save = FileAccess.file_exists(save_path)
 	if had_save: prior_save = FileAccess.get_file_as_bytes(save_path)
@@ -345,8 +354,17 @@ func test_application() -> void:
 	check(loaded.lang == app.lang and loaded.gentle and is_equal_approx(loaded.volume,0.35) and not loaded.motion and loaded.high_visibility,"Persisted language/accessibility/audio reloads")
 	for language in 2:
 		app.lang = language
+		for page in 6:
+			app.tutorial_step = page
+			app.show_tutorial()
+			await process_frame
+			await process_frame
+			check_labels(app,"Language %d tutorial %d" % [language,page+1])
 		for view in ["show_menu","show_profile","show_tutorial","show_wards","show_archive","show_settings","show_credits","show_failure","show_demo_end","show_choice"]:
 			app.call(view)
+			await process_frame
+			await process_frame
+			check_labels(app,"Language %d %s" % [language,view])
 			check(not app.ui.get_children().is_empty(), "Language %d %s builds" % [language,view])
 		app.show_ending(true)
 		check(app.screen == "ending" and app.session_ending == "remember","Language %d remember ending" % language)

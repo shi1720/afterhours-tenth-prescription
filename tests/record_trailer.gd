@@ -48,7 +48,7 @@ func play_ward(index: int, korean: bool = false) -> bool:
 	app.lang = 1 if korean else 0
 	app.show_intro(index)
 	shot("Ward %02d briefing (%s)" % [index+1,"Korean" if korean else "English"])
-	await hold(3)
+	await hold(5)
 	app.start_ward(index)
 	app.ward.test_mode = true
 	app.ward.move_override = Vector2.ZERO
@@ -77,7 +77,7 @@ func play_ward(index: int, korean: bool = false) -> bool:
 		if objective < 3: await hold(0.35)
 	if app.screen != "memory": return false
 	shot("Ward %02d real completion memory" % (index+1))
-	await hold(3)
+	await hold(6)
 	return true
 
 func stop_audio(node: Node) -> void:
@@ -93,6 +93,8 @@ func record() -> void:
 		app.ward.sounds.clear() # Dry-run validates control flow; real movie retains audio.
 	# In-memory fixture only: the overridden save() prevents writes from all screens.
 	app.profile = "Shivam"
+	app.volume = 0.65
+	AudioServer.set_bus_volume_db(0,linear_to_db(app.volume))
 	app.lang = 0
 	app.gentle = false
 	app.high_visibility = false
@@ -106,11 +108,11 @@ func record() -> void:
 	app.demo = false
 	app.show_menu()
 	shot("Title")
-	await hold(4)
+	await hold(6)
 	app.tutorial_step = 2
 	app.show_tutorial()
 	shot("Pulse field-guide card")
-	await hold(3)
+	await hold(6)
 	for index in [0,2,7]:
 		if not await play_ward(index,index == 7):
 			push_error("Recording pilot did not complete ward %d. Do not publish this take." % (index+1))
@@ -120,17 +122,17 @@ func record() -> void:
 		app.lang = 0
 		app.show_archive()
 		shot("Archive of the three recorded ward completions")
-		await hold(3)
+		await hold(5)
 		# Editorial preview of the final choice; no claim that the whole campaign was recorded.
 		app.show_choice()
 		shot("Editorial preview: final choice")
-		await hold(3)
+		await hold(5)
 		app.show_ending(true)
 		shot("Editorial preview: remember ending")
-		await hold(6)
+		await hold(10)
 		app.show_menu()
 		shot("Closing title")
-		await hold(4)
+		await hold(7)
 	print("RECORDING %s: %d frames, %.2f seconds" % ["FAILED" if failed else "COMPLETE",frame_count,float(frame_count)/FPS])
 	stop_audio(app)
 	await hold(0.2)

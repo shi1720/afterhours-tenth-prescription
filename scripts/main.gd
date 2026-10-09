@@ -136,10 +136,10 @@ func text_label(value: String, pos: Vector2, size: Vector2, font_size: int = 20,
 	label.add_theme_font_size_override("font_size",font_size)
 	label.add_theme_color_override("font_color",color)
 	label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	label.text = value
-	ui.add_child(label)
 	label.position = pos
 	label.size = size
+	label.text = value
+	ui.add_child(label)
 	return label
 
 func button(value: String, rect: Rect2, callback: Callable, primary: bool = false) -> Button:

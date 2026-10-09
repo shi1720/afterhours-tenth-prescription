@@ -353,6 +353,7 @@ func _draw() -> void:
 		for x in W:
 			var p := Vector2(x*TILE,y*TILE)
 			var floor_key := "cold_floor" if level == 1 else ("archive_floor" if level in [7,8] else ("final_floor" if level == 9 else "floor"))
+			if floor_key == "archive_floor" and (x*17+y*31+x*y*3)%11 > 1: floor_key = "floor"
 			var tones := [Color("ffffff"),Color("aac4df"),Color("dcd0bc"),Color("bbd7bb"),Color("cfb6c3"),Color("bfc4db"),Color("d2bdad"),Color("a7c4b9"),Color("bdb3cd"),Color("e4cdae")]
 			sprite(floor_key if textures.has(floor_key) else "floor",p,Vector2(32,32),tones[level])
 			if grid[y][x] != 0:
