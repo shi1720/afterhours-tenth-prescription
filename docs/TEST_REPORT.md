@@ -1,6 +1,6 @@
 # AFTERHOURS integration test report
 
-**Final result: 9,043 assertions, 0 failures, exit code 0.** Engine: Godot 4.5 stable, macOS native headless. The final log contains no script errors or resource-leak warnings. This report describes the current English-only game.
+**Final result: 9,057 assertions, 0 failures, exit code 0.** Engine: Godot 4.5 stable, macOS native headless. The final log contains no script errors or resource-leak warnings. This report describes the current English-only game.
 
 Run from the project directory after importing assets:
 
@@ -64,3 +64,7 @@ Fixture cleanup stops and clears audio streams before freeing application nodes 
 - The current product uses a local profile. It does not implement cloud accounts, cloud sync or multiplayer.
 
 Read `JUDGE_REVIEW.md` for independent qualitative judgment and remaining priorities.
+
+## Horror audio regression pass
+
+Five original cues load with valid durations: heartbeat, horror sting, shadow breath, shelf creak and pursuit. Added checks cover the 16-second scare cooldown, Gentle mode, reduced effects, hiding, paused simulation, apparition expiry and screen-transition cleanup. A rendered native capture verifies the apparition overlays gameplay. Source PCM peaks remain below 0.71; this is a clipping check, not an independent listening study.

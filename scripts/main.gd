@@ -29,6 +29,7 @@ var total_time := 0.0
 var toast := ""
 var toast_time := 0.0
 var hud_labels: Dictionary = {}
+var horror_overlay: Node2D
 var ambience: AudioStreamPlayer
 var intro_index := 0
 var transition_lock := false
@@ -64,6 +65,7 @@ func _ready() -> void:
 	ward.changed.connect(update_hud)
 	ward.finished.connect(on_finished)
 	ward.caught.connect(show_failure)
+	ward.fright.connect(func(intensity): horror_overlay.trigger(intensity))
 	ward.message.connect(show_toast)
 	var canvas := CanvasLayer.new()
 	add_child(canvas)
@@ -85,6 +87,11 @@ func _ready() -> void:
 		browser_callback = JavaScriptBridge.create_callback(browser_command)
 		var browser_window = JavaScriptBridge.get_interface("window")
 		browser_window.afterhoursInput = browser_callback
+	var scare_layer := CanvasLayer.new()
+	scare_layer.layer = 20
+	add_child(scare_layer)
+	horror_overlay = load("res://scripts/horror_overlay.gd").new()
+	scare_layer.add_child(horror_overlay)
 	show_menu()
 
 func save() -> void:
@@ -121,6 +128,9 @@ func load_save() -> void:
 
 func clear(next: String) -> void:
 	screen = next
+	if is_instance_valid(horror_overlay):
+		horror_overlay.remaining = 0
+		horror_overlay.queue_redraw()
 	for child in ui.get_children():
 		child.hide()
 		child.queue_free()
@@ -571,10 +581,10 @@ func show_settings(from_pause: bool = false) -> void:
 	slider.value_changed.connect(func(v): volume=v; AudioServer.set_bus_volume_db(0,linear_to_db(maxf(volume,0.001))); save())
 	ui.add_child(slider)
 	text_label("Gentle mode",Vector2(90,318),Vector2(530,40),25)
-	text_label("Slower shadows, less damage. Applies on ward entry.",Vector2(90,366),Vector2(650,40),16,MUTED)
+	text_label("Slower shadows, softer scares, no sudden faces. Applies on entry.",Vector2(90,366),Vector2(650,40),16,MUTED)
 	button("ON" if gentle else "OFF",Rect2(920,322,220,48),func(): gentle=not gentle; save(); show_settings(from_pause),gentle)
-	text_label("Atmospheric animation",Vector2(90,424),Vector2(650,40),25)
-	text_label("Title scanlines, pulse rings, and filament flicker.",Vector2(90,470),Vector2(730,40),16,MUTED)
+	text_label("Animation and jump scares",Vector2(90,424),Vector2(650,40),25)
+	text_label("Turn off sudden faces and flicker. Horror sounds stay on.",Vector2(90,470),Vector2(730,40),16,MUTED)
 	button("ON" if motion else "OFF",Rect2(920,426,220,48),func(): motion=not motion; save(); show_settings(from_pause),motion)
 	text_label("PROFILE: "+ (profile if profile != "" else " - ")+"  /  Saved on this device",Vector2(90,176),Vector2(1000,40),15,MUTED)
 	text_label("High visibility",Vector2(90,534),Vector2(650,40),25)

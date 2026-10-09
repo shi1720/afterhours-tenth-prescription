@@ -60,6 +60,33 @@ func run() -> void:
 	root.add_child(w)
 	w.finished.connect(func(): finished_count += 1)
 	w.caught.connect(func(): caught_count += 1)
+
+	var scares: Array[float] = []
+	w.fright.connect(func(value): scares.append(value))
+	fresh(w)
+	for cue in ["heartbeat","horror_sting","shadow_breath","shelf_creak","pursuit"]:
+		check(w.sounds.has(cue) and w.sounds[cue].stream.get_length() > 0.4,"Horror cue loads: "+cue)
+	w.startle(1.0)
+	check(scares.size() == 1 and w.scare_cooldown == 16,"Normal startle emits apparition and starts cooldown")
+	w.startle(1.0)
+	check(scares.size() == 1,"Repeated contact cannot spam jump scares")
+	fresh(w)
+	w.gentle = true
+	w.startle(1.0)
+	check(scares.size() == 1 and w.scare_cooldown > 0,"Gentle mode uses breath without sudden face")
+	fresh(w)
+	w.effects = false
+	w.startle(1.0)
+	check(scares.size() == 1,"Reduced effects suppresses apparition")
+	w.effects = true
+	fresh(w)
+	w.is_hiding = true
+	w.startle(1.0)
+	check(scares.size() == 1 and w.scare_cooldown == 0,"Cabinet shelter prevents startle")
+	fresh(w)
+	w.running = false
+	w.startle(1.0)
+	check(scares.size() == 1,"Paused ward cannot trigger startle")
 	check(Data.WARDS.size() == 10, "Ten authored wards exist")
 	for i in 10:
 		fresh(w,i)
@@ -382,6 +409,14 @@ func test_application() -> void:
 	app.ambience.stream = null # Audio listening is a separate manual release check.
 	app.ward.set_process(false)
 	check(app.screen == "menu" and app.profile == "", "Fresh launch presents title and no profile")
+	app.horror_overlay.trigger(1.0)
+	check(app.horror_overlay.remaining == 0.48,"Pixel apparition has short bounded lifetime")
+	app.horror_overlay._process(0.6)
+	check(app.horror_overlay.remaining == 0,"Apparition expires without blocking simulation")
+	app.horror_overlay.trigger(1.0)
+	app.show_menu()
+	check(app.horror_overlay.remaining == 0,"Screen transition clears apparition")
+
 	app.show_wards()
 	for child in app.ui.get_children():
 		if child is Button and child.visible and child.text == "Enter →":

@@ -14,7 +14,7 @@ The pharmacy closed ten years ago. Tonight, its lights came back on. Enter a hau
 
 Explore ten authored rooms with different routes and escalating threats. Each holds three sealed records. Your light pulse reveals names and briefly stops nearby shadows, but its sound can attract a distant pursuer. Stop to recover a record, choose where to hide, and make a careful return to the dispensing hatch.
 
-A receipt printer that wakes without power. A ticket display stuck on forty-one. A phone ringing down a corridor. Every room has its own environmental setpiece, arrival sound and recovered memory. The final prescription leads to two story choices.
+A receipt printer that wakes without power. A ticket display stuck on forty-one. A phone ringing down a corridor. Every room has its own environmental setpiece, arrival sound and recovered memory. The final prescription leads to two story choices. Proximity heartbeats, shelf creaks, pursuit cues and brief pixel apparitions build tension as shadows close in. Gentle mode softens the sounds and removes sudden faces; the animation setting also disables visual jump scares.
 
 ## Controls
 
@@ -58,7 +58,7 @@ godot --headless --path . --editor --import --quit
 godot --headless --path . --script tests/test_game.gd
 ```
 
-See [release checks](docs/RELEASE_CHECKLIST.md) for the current verification boundary. The current native suite passes 9,043 assertions. Browser evidence and remaining device checks are recorded separately in the checklist.
+See [release checks](docs/RELEASE_CHECKLIST.md) for the current verification boundary. The current native suite passes 9,057 assertions. Browser evidence and remaining device checks are recorded separately in the checklist.
 
 ## Build and deploy
 

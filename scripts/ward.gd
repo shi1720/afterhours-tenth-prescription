@@ -2,6 +2,7 @@ extends Node2D
 ## Deterministic ward simulation. Rendering and UI are separate from game state.
 signal changed
 signal finished
+signal fright(intensity: float)
 signal caught
 signal message(en: String, ko: String)
 const W := 27
@@ -34,6 +35,10 @@ var recharge_timer := 0.0
 var footsteps := 0.0
 var deaths := 0
 var astar := AStarGrid2D.new()
+var scare_cooldown := 0.0
+var heartbeat_timer := 0.0
+var creak_timer := 12.0
+var sighting_spent := false
 var sounds: Dictionary = {}
 var textures: Dictionary = {}
 var move_override := Vector2.ZERO
@@ -66,7 +71,7 @@ func _ready() -> void:
 	for key in ["floor", "wall", "shelves", "cabinet", "desk", "toxic", "exit", "battery", "prescription", "player", "enemy", "lamp", "ice_cabinet", "waiting_chair", "archive_boxes", "cold_floor", "archive_floor", "final_floor", "clock", "noticeboard", "plant", "memorial_candles", "cracked_window", "red_bell", "enemy_veil", "enemy_cold", "enemy_hollow", "enemy_choir", "receipt_printer", "frozen_bottles", "ticket_display", "burst_pipe", "two_seat_memorial", "sparking_fusebox", "hall_phone", "burnt_file", "unsent_letters", "name_memorial"]:
 		var path: String = "res://assets/" + key + ".png"
 		if ResourceLoader.exists(path): textures[key] = load(path)
-	for key in ["pickup", "alarm", "step", "pulse", "door", "fail"]:
+	for key in ["pickup", "alarm", "step", "pulse", "door", "fail", "heartbeat", "horror_sting", "shadow_breath", "shelf_creak", "pursuit"]:
 		var path: String = "res://assets/" + key + ".wav"
 		if ResourceLoader.exists(path):
 			var sound := AudioStreamPlayer.new()
@@ -194,6 +199,10 @@ func start(index: int, easy: bool = false) -> void:
 	health = 100
 	is_hiding = false
 	time = 0
+	scare_cooldown = 0
+	heartbeat_timer = 0
+	creak_timer = 12 + level
+	sighting_spent = false
 	pulse_time = 0
 	cooldown = 0
 	invincible = 2
@@ -220,6 +229,19 @@ func _process(delta: float) -> void:
 
 func step(delta: float) -> void:
 	time += delta
+	scare_cooldown = maxf(0,scare_cooldown-delta)
+	heartbeat_timer -= delta
+	creak_timer -= delta
+	var nearest := 9999.0
+	for shadow in enemies: nearest = minf(nearest,shadow.pos.distance_to(player))
+	if nearest < 210 and not is_hiding and heartbeat_timer <= 0:
+		heartbeat_timer = lerpf(0.42,1.1,clampf(nearest/210,0,1))
+		if sounds.has("heartbeat"): sounds.heartbeat.volume_db = -23 if gentle else lerpf(-12,-23,nearest/210)
+		sound("heartbeat")
+	if creak_timer <= 0:
+		creak_timer = 19 + level*0.7
+		if sounds.has("shelf_creak"): sounds.shelf_creak.volume_db = -22
+		sound("shelf_creak")
 	cooldown = maxf(0,cooldown-delta)
 	pulse_time = maxf(0,pulse_time-delta)
 	invincible = maxf(0,invincible-delta)
@@ -268,8 +290,15 @@ func step(delta: float) -> void:
 		var dist: float = enemy.pos.distance_to(player)
 		var hear_radius := (45.0 if sneak else 160.0) if moving else 0.0
 		var sees := dist < 180 and line_of_sight(enemy.pos,player)
+		if sees and dist < 125 and time > 4 and not is_hiding and not sighting_spent:
+			sighting_spent = true
+			startle(0.65)
 		if alarm: hear_radius = 2000
 		if not is_hiding and (dist < hear_radius or sees):
+			if enemy.alert <= 0:
+				if sounds.has("pursuit") and not sounds.pursuit.playing:
+					sounds.pursuit.volume_db = -22 if gentle else -18
+					sound("pursuit")
 			enemy.target = player
 			enemy.alert = 4.0
 		else:
@@ -303,6 +332,7 @@ func step(delta: float) -> void:
 			invincible = 2.0
 			enemy.stun = 1.6
 			sound("fail")
+			startle(1.0)
 			message.emit("The Unnamed found you. Pulse, hide, or break away.","")
 	if health <= 0:
 		running = false
@@ -474,3 +504,12 @@ func line_of_sight(a: Vector2, b: Vector2) -> bool:
 		var c := cell(a.lerp(b,float(n)/steps))
 		if grid[c.y][c.x] != 0: return false
 	return true
+
+func startle(intensity: float) -> void:
+	if not running or is_hiding or scare_cooldown > 0: return
+	scare_cooldown = 16.0
+	var cue := "shadow_breath" if gentle else "horror_sting"
+	if sounds.has(cue): sounds[cue].volume_db = -21 if gentle else -13
+	sound(cue)
+	if effects and not gentle: fright.emit(intensity)
+	message.emit("Something is looking back. Keep moving.", "")

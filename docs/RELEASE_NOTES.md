@@ -25,6 +25,13 @@ A profile identifies local progress, not an online account. Browser data belongs
 
 ## Readiness
 
-The current Godot 4.5 native suite passes 9,043 assertions with zero failures, including all ten normal-mode routes. Public Firebase play in Chrome verified the first room through ordinary keyboard input, interactions, pause, defeat/retry and checkpoint continuation after reload. Chrome landscape emulation at 844 by 390 rendered the menu and Ward 2 continuation.
+The current Godot 4.5 native suite passes 9,057 assertions with zero failures, including all ten normal-mode routes. Public Firebase play in Chrome verified the first room through ordinary keyboard input, interactions, pause, defeat/retry and checkpoint continuation after reload. Chrome landscape emulation at 844 by 390 rendered the menu and Ward 2 continuation.
 
 Final overlay touch input, physical devices, other browsers, full browser endings and human playtesting retain separate evidence gaps. See `RELEASE_CHECKLIST.md`. The current 67-second official video shows actual first-three-ward play with generic synthetic narration. It does not claim a complete campaign recording or Shivam's spoken voice.
+
+## Horror sound and jump scares
+
+- Heartbeats accelerate near shadows. Occasional shelf creaks and pursuit cues add spatial tension.
+- Close sightings and contact can trigger a brief pixel apparition with an original synthesized sting. A 16-second cooldown prevents repeated scares.
+- Gentle mode uses a softer breath cue and removes sudden faces. Disabling animation also removes visual jump scares.
+- All cues follow the existing master volume and mute controls. No external audio service is required.
