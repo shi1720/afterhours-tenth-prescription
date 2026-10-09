@@ -30,7 +30,7 @@ This checklist applies to the revised English-only product. Native results and b
 | Browser interactions, pause and retry | Pass in Chrome | Interactions, pause, defeat and retry observed on the public release |
 | Checkpoint and reload | Pass in Chrome | Completed checkpoint survived reload and continued to Ward 2 |
 | Landscape emulation | Partial | Chrome 844 by 390 rendered menu and continued to Ward 2 |
-| Final touch movement and Pulse | Verified in Chrome emulation | 844 x 390, held direction moved player, Pulse reduced charge and drew ring; Use bridge has native regression coverage |
+| Final touch movement, Sneak, Use and Pulse | Verified in Chrome emulation | 844 x 390; two simultaneous CDP touches held direction and Sneak; releasing both stopped input; Use displayed the proximity prompt; Pulse reduced charge and drew its ring |
 | Touch release and rotation | Verified in Chrome emulation | Direction released after held click; portrait 390 x 844 shows rotation guidance with no horizontal overflow; hardware cancellation remains untested |
 | Physical phones/tablets | Not tested | Emulation does not establish real hardware support |
 | Other browsers | Not tested | Do not generalize Chrome evidence to Safari, Firefox or Edge |
@@ -51,3 +51,5 @@ This checklist applies to the revised English-only product. Native results and b
 | Creator and assistance attribution | Documented | Shivam Gupta creator/product direction, with honest AI assistance credit |
 
 Deployment target: `hosting:afterhours`, project `unpause-studio`, secondary site `afterhours-prescription`. Existing default-site and backend services are outside the deployment.
+
+Final verification: GitHub Linux CI build and Pages deployment passed for game commit 5fe153f. Firebase deployment completed with 9,043 passing checks. The public YouTube page played successfully; captions are burned into the film. The additional selectable caption track was uploaded and published in Studio, but the watch-page CC control was still processing at the final check.

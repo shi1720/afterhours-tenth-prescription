@@ -1,36 +1,9 @@
-> Historical evidence from the earlier release. These observations do not certify the revised English-only mechanics, touch player or current Firebase build. Use RELEASE_CHECKLIST.md for current verification.
+# Browser release verification
 
-# Exported-browser acceptance record
+9 October 2026. Game build 5fe153f, Godot 4.5 stable, desktop Chrome.
 
-**Date:** 9 October 2026. **Browser:** real Google Chrome, operated through computer-use automation. **Build:** exported Godot Web build served at `http://localhost:8732`. This record summarizes observations reported by the build lead; it is separate from the native headless suite. It is not a human playtest or cross-browser certification.
+Firebase release loaded from https://afterhours-prescription.web.app with no captured console errors. WASM returned application/wasm and HTML no-store. The full first ward was completed with ordinary keyboard input: movement, sealed reveal, stationary recovery, enemy damage, pause/resume, three names, hatch, memory screen and checkpoint. Defeat and retry were also exercised. Reload retained the checkpoint and Continue opened Ward 2.
 
-## Observed passes
+At 844 x 390 with Chrome touch emulation, compact menus and the 1.6x follow camera rendered correctly. Two simultaneous touch contacts held Right and Sneak. Touch release cleared both. Use displayed its proximity feedback. Pulse reduced charge and drew its ring. Pause worked. At 390 x 844, rotation guidance appeared without horizontal overflow. Final touch controls overlay the lower corners, preserving the full game area. Temporary viewport and touch overrides were removed after testing.
 
-- Exported game loaded cleanly and rendered the title/menu.
-- Local profile creation and the first-time guide worked; guide skip entered the game flow.
-- The profile and Continue flow persisted after a real browser reload on the same origin.
-- Physical Right, Down and Left keys moved the player in the exported build.
-- SPACE revealed a sealed record and E recovered it. All three records in Ward 1 were recovered through actual browser input.
-- Using the hatch completed Ward 1 and displayed its memory/checkpoint transition.
-- Pause and settings worked while the ward remained paused.
-- Switching to Korean and enabling high visibility worked. Inspected labels were readable in that state.
-
-## Exact boundaries
-
-The recorded automated profile ended up as `Q` because of a text-entry automation issue. A short profile and normal profile flow were verified; rich text input, long Korean names and Korean IME composition were not established by this observation.
-
-Only Ward 1 was fully completed in Chrome. The ten-ward full-route evidence comes from the separate native simulation suite. This browser session did not establish all browser endings, all guide pages, browser save-corruption recovery, every settings combination, fullscreen/resize behavior, other browsers, mobile devices, long-session stability, subjective audio quality or native Korean translation fluency.
-
-Both public GitHub Pages builds and deployments succeeded. The refined build at commit 6eb70ed was opened in real Chrome at https://shi1720.github.io/afterhours-tenth-prescription/ and its title/menu rendered correctly. The localhost browser session also reloaded after Ward 1 completion and Continue opened the Ward 2 briefing, confirming the actual ward checkpoint persisted. Future hosted revisions need their own acceptance checks.
-
-## Other artifact smoke checks
-
-An unsigned universal macOS export was launched headlessly with `--quit-after 30`; it exited 0 without engine errors. This checks startup, not a human GUI playthrough or macOS signing/notarization. Windows and Linux exports were generated but were not run on this host. The final packaged macOS build was unzipped and rerun after the label patch; startup again exited 0 without errors.
-
-## Video artifact
-
-`AFTERHOURS_GAMEPLAY.mp4` is an actual generated gameplay recording with original game audio: 1280×720, 30 fps, approximately 119.83 seconds, approximately 6.2 MB. It is not a fabricated UI mockup and is not evidence of human input or a spoken presentation. The separate verbatim narration remains available for Shivam's optional voice recording.
-
-## Media verification
-
-The final MP4 was decoded with ffmpeg; sampled gameplay frames were visually inspected. Its audio stream has a measured mean of -29.7 dB and peak of -17.4 dB, without clipping. This verifies media structure and signal level, not subjective listening quality.
+Evidence: outputs/firebase-ward-complete.jpg and outputs/firebase-mobile.jpg in the task deliverables. Native integration and Linux CI each passed 9,043 assertions. Physical phone hardware and browsers other than Chrome were not exercised. Native tests cover both endings; the full ten-ward campaign was not manually repeated in the browser.
