@@ -1,82 +1,102 @@
 # AFTERHOURS: The Tenth Prescription
-### 심야약국: 열 번째 처방전
 
-**Ten wards. Three records in each. One light left on.**
+**Ten wards. Thirty names. One light left on.**
 
-A complete ten-ward pixel horror campaign built in Godot. You return to a pharmacy that closed ten years ago, recover prescriptions carrying forgotten names, and decide what the building will remember. The shadows are supernatural grief, not a portrayal of mental illness.
+The pharmacy closed ten years ago. Tonight, its lights came back on. Enter a haunted pharmacy, recover the names your sister refused to lose, and decide what the building remembers.
 
-![AFTERHOURS title illustration](assets/title_art.png)
+[Play AFTERHOURS](https://afterhours-prescription.web.app) · [Source](https://github.com/shi1720/afterhours-tenth-prescription)
 
-## Play
+[Official gameplay video](https://youtu.be/L6kt6Z9vEp4) (published publicly). The 67-second montage uses a generic synthetic narrator, not Shivam Gupta's voice.
 
-Play [the browser build](https://shi1720.github.io/afterhours-tenth-prescription/) in a desktop browser, click inside the game, and create a local profile. Choose **Begin the night** (or **Continue shift** with an existing profile) for the ten-ward campaign, or the separate demo for a short introduction. Follow the first-launch tutorial; it can be skipped and replayed. English and Korean are available in the interface.
+![The pharmacy after closing](assets/title_art.png)
 
-| Key | Action |
-| --- | --- |
-| WASD / arrow keys | Move |
-| Shift | Sneak: slower movement, quieter footsteps |
-| E | Collect a nearby record, hide/leave a cabinet, recharge, or use the hatch |
-| Space | Reveal nearby sealed records and stun shadows; consumes battery |
-| Escape | Pause / return |
+## The night shift
 
-Records begin sealed. Press Space nearby to reveal a name, then E to collect it. The same pulse stuns nearby shadows for 4.5 seconds and costs 18 charge; each recovered record returns 8 charge. Recover all three records, then press E at the dispensing hatch. The teal charging station restores battery and some composure, but its noise draws shadows. Hiding breaks pursuit. A pulse stuns nearby shadows, buying time to escape. Ten authored layouts introduce timed low-visibility periods, alarms with a visible countdown, hazardous residue, faster shadows and multiple pursuers. Thirty fictional names are recovered across the campaign. There are two final story choices.
+Explore ten authored rooms with different routes and escalating threats. Each holds three sealed records. Your light pulse reveals names and briefly stops nearby shadows, but its sound can attract a distant pursuer. Stop to recover a record, choose where to hide, and make a careful return to the dispensing hatch.
 
-**Headphones are optional.** Visual cues show objectives, warnings and resources. Horror includes pursuit, darkness, spectral figures, pulse effects and peril; it contains no medical advice. Settings include a gentler mode, high visibility, master volume and atmospheric animation controls.
+A receipt printer that wakes without power. A ticket display stuck on forty-one. A phone ringing down a corridor. Every room has its own environmental setpiece, arrival sound and recovered memory. The final prescription leads to two story choices.
 
-Source repository: [shi1720/afterhours-tenth-prescription](https://github.com/shi1720/afterhours-tenth-prescription).
+## Controls
+
+| Action | Keyboard | Touch |
+| --- | --- | --- |
+| Move | WASD or arrow keys | Direction pad |
+| Sneak | Hold Shift | Sneak control |
+| Reveal records and stun nearby shadows | Space | Pulse |
+| Recover a name or use an object | E | Use |
+| Pause | Escape | Pause |
+
+On a phone or tablet, turn the device to landscape and use the controls around the game. Click or tap inside the player if keyboard focus is elsewhere. The first-launch field guide explains the night shift and can be replayed from the title screen.
+
+A pulse costs **24 charge**, stuns nearby shadows for **2.6 seconds**, and has a **4.2-second cooldown**. Press Use beside a revealed record, then remain still for its **0.9-second recovery**. A recovered name returns some charge. Collect all three records and use the hatch to descend.
+
+Cabinets break pursuit. The charging station restores charge and some resolve, but its hum draws shadows. Alarms, timed darkness and pulsing spills change when a route is safe. Late pursuers make cover important.
+
+## Your progress
+
+Create a local profile and continue from completed wards. Your profile, archive, unlocked rooms, preferences and ending stay on this device. The game has no password, online authentication, subscription or cloud synchronization.
+
+Browser saves belong to the current browser and site address. Clearing site data, private browsing, storage eviction, changing browsers or switching devices can remove or separate progress. Moving from the previous GitHub Pages address to Firebase does not transfer an existing save automatically.
+
+## Settings and content
+
+The interface is English. Settings include volume, gentler difficulty, high visibility and atmospheric animation controls. Visual cues communicate objectives and danger, so headphones are optional. The fictional story includes darkness, spectral pursuit and peril. It contains no medication advice or real patient information.
 
 ## Run from source
 
-1. Install Godot 4.5 or later in the Godot 4.x series, with export templates matching the editor version.
-2. Import `project.godot` and run the main scene with F6, or the project with F5.
-3. The project uses the Compatibility renderer. No API keys, paid services, account backend or external package installation is required for gameplay.
-
-Command line, with `godot` on PATH:
+Use Godot 4.5 with matching export templates. Open `project.godot` and run the project with F5. The Compatibility renderer supports the web export. Gameplay needs no API keys, account server or paid inference service.
 
 ```sh
 godot --path . --editor
 godot --path .
 ```
 
-For web, export the project with the Web preset to `export/web/index.html`. Serve the generated directory over HTTP; opening the HTML directly as a file is unsupported.
+Run the native integration suite after importing assets:
 
 ```sh
+godot --headless --path . --editor --import --quit
+godot --headless --path . --script tests/test_game.gd
+```
+
+See [release checks](docs/RELEASE_CHECKLIST.md) for the current verification boundary. The current native suite passes 9,043 assertions. Browser evidence and remaining device checks are recorded separately in the checklist.
+
+## Build and deploy
+
+For all configured exports, set `GODOT_BIN` if Godot is not on PATH and run:
+
+```sh
+GODOT_BIN=/path/to/godot tools/build.sh
+```
+
+For a local web preview, export the Web preset to `export/web/index.html`, copy the shell artwork and serve over HTTP:
+
+```sh
+mkdir -p export/web/assets
+godot --headless --path . --export-release Web export/web/index.html
+cp assets/title_art.png export/web/assets/title_art.png
 python3 -m http.server 8080 --directory export/web
 ```
 
-Open `http://localhost:8080`. Keep all generated `.wasm`, `.pck`, JavaScript and HTML files together. If a threaded Web export is used, the host must supply the required cross-origin isolation headers; the release should prefer a non-threaded build for simple static hosting. Refer to the exact checked-in export preset when rebuilding.
+Open `http://localhost:8080`. Opening the exported HTML as a file is unsupported. Keep the HTML, JavaScript, WASM and PCK files together. The Web preset uses a single-threaded build for ordinary static hosting.
 
-## Build and verification
-
-The native Godot 4.5 integration suite completed **4,945 assertions with 0 failures**, including active-enemy routes through all ten wards. A real Chrome session completed Ward 1 in the exported Web build and checked profile persistence, pause/settings, Korean labels and high visibility. An unsigned universal macOS export passed a headless startup smoke check. Windows/Linux exports are generated artifacts, with execution on those platforms still unverified.
+Firebase deployment uses a dedicated secondary Hosting site. Authenticate the Firebase CLI with an account authorized for the project, then run:
 
 ```sh
-godot --headless --path . --editor --quit
-godot --headless --path . --script tests/test_game.gd
-godot --headless --path . --export-release Web export/web/index.html
+GODOT_BIN=/path/to/godot FIREBASE_BIN=/path/to/firebase tools/deploy_firebase.sh
 ```
 
-Run the suite outside an active play session: it temporarily uses fixture saves and restores the prior save on normal completion. Read [the test report](docs/TEST_REPORT.md), [browser acceptance record](docs/BROWSER_QA.md) and [separate review](docs/INDEPENDENT_REVIEW.md) for evidence and limitations. These are automated/AI-assisted checks, not independent human endorsement.
+The script imports assets, runs native tests, exports the web build, copies title art, then deploys only `hosting:afterhours` in `unpause-studio`. It does not deploy the project's default site or backend services. `--skip-build` deploys an already verified export. Never commit credentials. The configuration serves WASM with the correct MIME type and prevents stale HTML caching.
 
-Watch [the two-minute gameplay recording](docs/AFTERHOURS_GAMEPLAY.mp4), or read [the press kit](docs/AFTERHOURS_PRESS_KIT.pdf). [Release downloads](https://github.com/shi1720/afterhours-tenth-prescription/releases) are the place to find published packages; availability depends on the actual published release.
+## Project contents
 
-## Saves and privacy
+- `scripts/`: ward simulation, interface and story.
+- `assets/`: original procedural pixel art, synthesized audio and font licenses.
+- `tests/`: reproducible integration checks.
+- `tools/`: asset generators, build and scoped deployment scripts.
+- `docs/`: product overview, recording script, commercial plan and release evidence.
 
-The profile is a name attached to a local campaign save. **They are not secure online accounts or cloud authentication.** The game does not ask for a password. Desktop saves use Godot's application data directory; web saves use browser storage for the current origin. Changing browser or hostname, private browsing, clearing site data, or storage eviction can lose progress. There is no cloud synchronization. Use the same browser and origin to continue a shift.
+## Credits
 
-## Project map
+Created and directed by **Shivam Gupta**, with AI-assisted implementation, writing, original procedural art and synthesized sound. This attribution does not claim particular implementation tasks were completed manually.
 
-- `scripts/`: game simulation, interface and bilingual ward content.
-- `assets/`: original procedural pixel art and synthesized audio; bundled font licenses are in `assets/fonts/`.
-- `docs/`: submission copy, narration, commercial plan, release limits and self-review rubric.
-- `project.godot` / `main.tscn`: entry point and project configuration.
-
-Read [the documentation index](docs/README.md) for the submission kit. The jam build grants access to all ten wards; future pricing discussed in the commercial plan is a hypothesis for an expanded release, not a paywall in this build.
-
-## Credits and status
-
-Created and directed by **Shivam Gupta**, with AI-assisted implementation, writing, procedural art and sound production. Attribution does not claim specific manual programming work. Disclose assistance wherever the jam's rules require it; this repository does not establish eligibility under rules that were not supplied.
-
-This is a release candidate for a game jam, with an explicit finite scope. Executed checks support the release candidate on the tested paths; they do not certify production readiness on every device. See [release notes](docs/RELEASE_NOTES.md) and [QA self-review](docs/QA_SELF_REVIEW.md) for limitations and verification boundaries.
-
-Godot and bundled fonts retain their respective licenses. Project code/art are copyright 2026 Shivam Gupta unless a file states otherwise; no open-source license is implied.
+Godot and bundled fonts retain their respective licenses. Project code and original assets are copyright 2026 Shivam Gupta unless a file states otherwise. No open-source license is implied. See [credits](docs/CREDITS.md) and the [documentation index](docs/README.md).

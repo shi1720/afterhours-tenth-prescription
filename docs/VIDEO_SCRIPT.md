@@ -1,57 +1,46 @@
-# Two-minute narration for the supplied gameplay montage
+# Official gameplay video narration
 
-**Narrator:** Shivam Gupta. Read the English narration verbatim. The supplied `AFTERHOURS_GAMEPLAY.mp4` is 119.833 seconds, 1280×720, 30 fps, H.264/AAC, with original game audio and no spoken voiceover. This is a montage selecting Wards 1, 3 and 8, followed by editorial ending previews; it is not an uninterrupted full-campaign playthrough.
+The final video is `AFTERHOURS_OFFICIAL_DEMO.mp4`: 67 seconds, 1280 by 720, 30 fps, H.264 video and AAC audio. It combines actual gameplay from the first three wards with title, guide, briefing and an earned completion memory. It contains no editorial ending or final-choice shots.
 
-The 13 narration blocks below follow the actual `RECORDING_GUIDE.md` sequence. Companion English/Korean `.srt` files are draft narration captions, not a transcript of existing speech. Timings approximate the 120-second timeline and must be aligned to Shivam's recorded delivery before final caption export. The Korean draft has not had native-speaker review.
+**Voice:** generic AndrewNeural synthetic narration. It is not Shivam Gupta's voice or a recording of him speaking. The narration audio lasts 66.888 seconds. Creator credit remains Shivam Gupta.
 
-## Verbatim narration
+**YouTube release:** https://youtu.be/L6kt6Z9vEp4 . Public watch page verified on 9 October 2026.
 
-My name is Shivam Gupta, and this is AFTERHOURS: The Tenth Prescription.
+## Exact spoken script
 
-The pharmacy closed ten years ago. Tonight, its lights came back on. Your light reveals sealed names, but it is also what keeps the shadows back.
+The pharmacy closed ten years ago. Tonight, its lights came back on.
 
-Explore each ward, reveal three prescriptions with Space, then collect them with E. The same pulse stuns nearby shadows. Every pulse costs battery, so recovering a name and protecting yourself become the same difficult decision.
+This is Afterhours: The Tenth Prescription, a pixel art horror game about the people a place refuses to forget.
 
-Bring every record to the hatch, and another piece of the pharmacy's story returns.
+You are the last pharmacist on the night shift. Somewhere beneath the counter are thirty missing names. Recover them, ward by ward, before the Unnamed find you.
 
-Each of the ten authored wards introduces a new survival rule.
+Your scanner reveals sealed records and briefly stops nearby shadows. But every pulse costs charge, and the sound brings others closer. Walking quietly, breaking their line of sight, and knowing when to hide can save your shift.
 
-Here, the alarm draws the shadows toward you. Watch the countdown and plan your route. Quieter movement, hiding places and charging stations give you options beyond the route shown here. Safety always comes with a decision.
+Recovering a name takes a moment of stillness. That small pause becomes a difficult choice when something is moving in the dark.
 
-The records are not a shopping list. They preserve people the world has forgotten.
+Ten wards take you from a frozen dispensary to a flooded archive and the final prescription. Each carries a different fragment of your sister's story.
 
-English and Korean carry the same story, objectives and survival instructions.
+Follow the sound. Keep the names. Decide what the pharmacy should remember.
 
-In this later ward, timed darkness and hazardous residue change familiar routes. Light still reveals the way forward. The full game combines these threats across ten distinct layouts.
+Play Afterhours in your browser. Your shift begins at midnight.
 
-Recovered memories stay in your archive. Your sister, the last pharmacist, refused to let these names disappear. Local progress lets you return to finish what she began.
+## Exact edit map
 
-This is a preview of the final choice: what should the pharmacy remember?
+The segments below come from `work/assemble_video.py`. Source timestamps refer to the second in-engine capture, not a complete continuous player session.
 
-The jam version includes all ten wards. An expanded premium game is a future hypothesis, shaped by player feedback, rather than a promise of proven demand.
-
-AFTERHOURS asks one question: when someone disappears from the records, who keeps the light on?
-
-## Shot list matching the existing MP4
-
-| Time | Existing footage | Narration block |
+| Output timeline | Source seconds | Actual footage |
 | --- | --- | --- |
-| 00:00:00-00:00:06 | Title | 1 |
-| 00:00:06-00:00:17 | Pulse guide, then Ward 1 briefing | 2 |
-| 00:00:17-00:00:33 | Ward 1 actual gameplay | 3 |
-| 00:00:33-00:00:39 | Earned Ward 1 memory | 4 |
-| 00:00:39-00:00:44 | Ward 3 briefing | 5 |
-| 00:00:44-00:01:00 | Ward 3 actual alarm gameplay | 6 |
-| 00:01:00-00:01:06 | Earned Ward 3 memory | 7 |
-| 00:01:06-00:01:11 | Korean Ward 8 briefing | 8 |
-| 00:01:11-00:01:26 | Korean Ward 8 actual gameplay | 9 |
-| 00:01:26-00:01:37 | Earned Ward 8 memory, then archive | 10 |
-| 00:01:37-00:01:42 | Editorial preview of final choice | 11 |
-| 00:01:42-00:01:52 | Editorial preview of remember ending | 12 |
-| 00:01:52-00:01:59 | Closing title | 13 |
+| 00:00.000 to 00:05.000 | 0 to 5 | Opening title |
+| 00:05.000 to 00:10.000 | 12 to 17 | Ward 1 briefing |
+| 00:10.000 to 00:13.000 | 6 to 9 | Pulse field-guide card |
+| 00:13.000 to 00:23.000 | 17 to 27 | Ward 1 actual gameplay |
+| 00:23.000 to 00:34.500 | 27 to 38.5 | Ward 1 actual gameplay continued |
+| 00:34.500 to 00:40.000 | 49.5 to 55 | Ward 2 transition into actual gameplay |
+| 00:40.000 to 00:49.000 | 55 to 64 | Ward 2 actual gameplay |
+| 00:49.000 to 00:58.000 | 82.7 to 91.7 | Ward 3 actual alarm gameplay |
+| 00:58.000 to 01:03.000 | 105 to 110 | Earned Ward 3 completion memory |
+| 01:03.000 to 01:07.000 | 131 to 135 | Closing title |
 
-## Optional additional human capture
+The recording fixture selects Wards 1, 2 and 3 directly and runs their actual normal-mode mechanics. It does not represent an uninterrupted ten-ward campaign or human-controlled playthrough. The final edit excludes the source capture's archive, final-choice and ending previews.
 
-The supplied montage does not demonstrate cabinet entry, recharging, a language-toggle click or a settings walkthrough. If a longer narrated version needs those actions on screen, record them separately from the final build and label the edit honestly. Do not describe this existing montage as showing them. No extra capture is required to use the current shot-matched narration.
-
-Keep the voice above the music, retain a few game sound cues, and rehearse before recording. English and Korean SRT tracks can be provided separately rather than placing two dense caption languages on one screen. The narration credits Shivam; the project assistance disclosure remains in the README and submission materials.
+Captions in `AFTERHOURS_NARRATION_EN.srt` copy the final timed caption file. They correspond to the synthetic spoken narration, not the earlier draft script.

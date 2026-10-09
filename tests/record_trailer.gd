@@ -44,10 +44,9 @@ func walk_to(destination: Vector2) -> bool:
 	w.move_override = Vector2.ZERO
 	return true
 
-func play_ward(index: int, korean: bool = false) -> bool:
-	app.lang = 1 if korean else 0
+func play_ward(index: int) -> bool:
 	app.show_intro(index)
-	shot("Ward %02d briefing (%s)" % [index+1,"Korean" if korean else "English"])
+	shot("Ward %02d briefing" % (index+1))
 	await hold(5)
 	app.start_ward(index)
 	app.ward.test_mode = true
@@ -66,7 +65,7 @@ func play_ward(index: int, korean: bool = false) -> bool:
 		if not await walk_to(destination): return false
 		if app.ward.fragments.has(destination) and not app.ward.revealed.has(destination):
 			while app.ward.cooldown > 0 and app.ward.running: await frames(1)
-			if app.ward.battery < 18:
+			if app.ward.battery < 24:
 				# Recover from an unexpectedly expensive encounter using the real charger.
 				if not await walk_to(app.ward.station): return false
 				app.ward.interact()
@@ -74,7 +73,7 @@ func play_ward(index: int, korean: bool = false) -> bool:
 			app.ward.pulse()
 			await hold(0.35) # Let the genuine reveal ring be visible before pickup.
 		app.ward.interact()
-		if objective < 3: await hold(0.35)
+		if objective < 3: await hold(1.05) # Genuine stationary recovery channel.
 	if app.screen != "memory": return false
 	shot("Ward %02d real completion memory" % (index+1))
 	await hold(6)
@@ -91,11 +90,11 @@ func record() -> void:
 	if DisplayServer.get_name() == "headless":
 		app.ambience.stream = null
 		app.ward.sounds.clear() # Dry-run validates control flow; real movie retains audio.
+		app.arrival.volume_db = -80
 	# In-memory fixture only: the overridden save() prevents writes from all screens.
 	app.profile = "Shivam"
 	app.volume = 0.65
 	AudioServer.set_bus_volume_db(0,linear_to_db(app.volume))
-	app.lang = 0
 	app.gentle = false
 	app.high_visibility = false
 	app.motion = true
@@ -105,7 +104,6 @@ func record() -> void:
 	app.memories = []
 	app.session_ending = ""
 	app.campaign_complete = false
-	app.demo = false
 	app.show_menu()
 	shot("Title")
 	await hold(6)
@@ -113,13 +111,12 @@ func record() -> void:
 	app.show_tutorial()
 	shot("Pulse field-guide card")
 	await hold(6)
-	for index in [0,2,7]:
-		if not await play_ward(index,index == 7):
+	for index in [0,1,2]:
+		if not await play_ward(index):
 			push_error("Recording pilot did not complete ward %d. Do not publish this take." % (index+1))
 			failed = true
 			break
 	if not failed:
-		app.lang = 0
 		app.show_archive()
 		shot("Archive of the three recorded ward completions")
 		await hold(5)
@@ -135,6 +132,7 @@ func record() -> void:
 		await hold(7)
 	print("RECORDING %s: %d frames, %.2f seconds" % ["FAILED" if failed else "COMPLETE",frame_count,float(frame_count)/FPS])
 	stop_audio(app)
+	if DisplayServer.get_name() == "headless": OS.delay_msec(200) # Drain Dummy audio thread after rapid dry-run.
 	await hold(0.2)
 	app.queue_free()
 	await process_frame

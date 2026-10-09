@@ -1,4 +1,8 @@
 extends SceneTree
+class ScreenshotMain:
+	extends "res://scripts/main.gd"
+	func save() -> void:
+		pass
 var app
 func _initialize():
 	call_deferred("capture")
@@ -8,9 +12,13 @@ func shot(name: String):
 	await RenderingServer.frame_post_draw
 	root.get_texture().get_image().save_png("res://docs/screenshots/"+name+".png")
 func capture():
-	app=load("res://main.tscn").instantiate()
+	app=ScreenshotMain.new()
 	root.add_child(app)
 	root.size=Vector2i(1280,720)
+	app.profile=""
+	app.motion=false
+	app.high_visibility=false
+	app.show_menu()
 	await shot("01-title")
 	app.show_profile()
 	await shot("02-profile")
@@ -22,16 +30,19 @@ func capture():
 	app.start_ward(0)
 	app.ward.running=false
 	await shot("05-gameplay")
-	app.lang=1
 	app.start_ward(7)
 	app.ward.running=false
-	await shot("06-korean")
+	await shot("06-ward08")
 	app.show_choice()
 	await shot("07-choice")
-	app.lang=0
 	app.show_settings()
 	await shot("08-settings")
-	app.lang=0
+	app.start_ward(9)
+	app.ward.running=false
+	app.browser_command([JSON.stringify({"command":"layout","value":true})])
+	app.ward.running=false
+	await shot("09-compact")
+	app.browser_command([JSON.stringify({"command":"layout","value":false})])
 	for i in 10:
 		app.start_ward(i)
 		app.ward.running=false

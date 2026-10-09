@@ -1,35 +1,28 @@
-# Submission copy
+# AFTERHOURS: The Tenth Prescription
 
-**Title:** AFTERHOURS: The Tenth Prescription
+**Ten wards. Thirty names. One light left on.**
 
-**Korean title:** 심야약국: 열 번째 처방전
+The pharmacy closed ten years ago. Tonight, its lights came back on. A receipt printer knows your name. Inside, your sister's records preserve thirty people the town forgot.
 
-**Tagline:** Ten wards. Three records in each. One light left on.
+Explore ten distinct rooms, reveal sealed names with your light and remain still long enough to recover them. The same pulse holds nearby shadows back, but its sound can draw another pursuer. Cabinets offer cover. A charging station offers relief at the cost of noise. Alarms, blackouts and spills change the route ahead.
 
-**Short description:** A pixel horror game set in a pharmacy that closed ten years ago. Recover forgotten prescriptions across ten dangerous wards, conserve your light, and decide which names the building remembers.
+The records lead to the last pharmacist's story and a final choice about what the pharmacy remembers.
 
-**Full description:**
+## Included experience
 
-The pharmacy closed ten years ago. Tonight, its lights came back on. A receipt printed your name beside ten prescriptions that were never finished.
+- Ten authored layouts with individual environmental setpieces and arrival sounds.
+- Thirty fictional names and recovered memories.
+- Pulse, recovery, stealth, hiding and recharge systems.
+- Local profile, checkpoints, archive and two story endings.
+- English interface, replayable field guide and accessibility settings.
+- Browser player with keyboard and landscape touch controls.
 
-Descend through ten wards, revealing three sealed record fragments with light and collecting them in each and returning them to the dispensing hatch. The same light pulse reveals a name and stuns nearby shadows, cabinets break pursuit, and a charging station offers relief at the cost of noise. Timed low-visibility periods, alarms, hazardous residue and multiple shadows change how you plan your route.
+**Play:** https://afterhours-prescription.web.app
 
-The records tell a humane supernatural story: these shadows carry the names of people the world forgot. The final choice is yours.
+**Source:** https://github.com/shi1720/afterhours-tenth-prescription
 
-Play the full ten-ward game-jam campaign in a desktop browser, or choose the separate short demo. English and Korean interfaces, a first-time tutorial and local progress make the experience easy to enter and return to.
+**Creator and product direction:** Shivam Gupta.
 
-**Controls:** WASD/arrows move; Shift sneaks; Space reveals sealed records and stuns nearby shadows; E collects/interacts; Escape pauses.
+**Assistance:** AI tools assisted implementation, writing, original procedural pixel art and synthesized audio. The credits do not claim all work was performed manually.
 
-**Platform:** Godot 4, desktop keyboard, downloadable source and web export. Mobile/touch, cloud accounts and cloud saves are outside this release scope.
-
-**Content notice:** Darkness, spectral pursuit, peril and light effects. Fictional pharmacy setting; no medical advice. Headphones optional.
-
-**Creator:** Shivam Gupta - creator and product direction.
-
-**Assistance disclosure:** AI tools assisted code, writing, original procedural pixel art and synthesized audio. No claim is made that all implementation was performed manually. Apply the organizer's exact disclosure requirements before submission; eligibility has not been independently verified.
-
-**Commercial direction:** The jam version offers all ten wards free. A future expanded premium game with a free browser prologue is a hypothesis to validate through playtesting, not a current paid offering.
-
-## Korean short description
-
-십 년 전에 문을 닫은 약국. 오늘 밤 다시 불이 켜졌습니다. 열 개의 위험한 구역에서 잊힌 처방전 기록을 되찾고, 빛을 아끼며, 약국이 어떤 이름을 기억할지 결정하세요. 영어와 한국어로 플레이할 수 있는 픽셀 호러 게임입니다.
+**Content:** Fictional pharmacy, darkness, spectral pursuit and peril. No real patient information or medication advice.

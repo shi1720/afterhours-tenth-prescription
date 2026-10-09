@@ -1,231 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-<meta name="description" content="Ten wards. Thirty forgotten names. A bilingual pixel horror game by Shivam Gupta, made in Godot.">
-		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
-		<title>$GODOT_PROJECT_NAME</title>
-		<style>
-html, body, #canvas {
-	margin: 0;
-	padding: 0;
-	border: 0;
-}
-
-body {
-	color: white;
-	background-color: black;
-	overflow: hidden;
-	touch-action: none;
-}
-
-#canvas {
-	display: block;
-}
-
-#canvas:focus {
-	outline: none;
-}
-
-#status, #status-splash, #status-progress {
-	position: absolute;
-	left: 0;
-	right: 0;
-}
-
-#status, #status-splash {
-	top: 0;
-	bottom: 0;
-}
-
-#status {
-	background-color: $GODOT_SPLASH_COLOR;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	visibility: hidden;
-}
-
-#status-splash {
-	max-height: 100%;
-	max-width: 100%;
-	margin: auto;
-}
-
-#status-splash.show-image--false {
-	display: none;
-}
-
-#status-splash.fullsize--true {
-	height: 100%;
-	width: 100%;
-	object-fit: contain;
-}
-
-#status-splash.use-filter--false {
-	image-rendering: pixelated;
-}
-
-#status-progress, #status-notice {
-	display: none;
-}
-
-#status-progress {
-	bottom: 10%;
-	width: 50%;
-	margin: 0 auto;
-}
-
-#status-notice {
-	background-color: #5b3943;
-	border-radius: 0.5rem;
-	border: 1px solid #9b3943;
-	color: #e0e0e0;
-	font-family: 'Noto Sans', 'Droid Sans', Arial, sans-serif;
-	line-height: 1.3;
-	margin: 0 2rem;
-	overflow: hidden;
-	padding: 1rem;
-	text-align: center;
-	z-index: 1;
-}
-		
-html,body {background:#08131b;font-family:monospace;color:#e8eadc}
-#canvas {width:100vw;height:100vh;object-fit:contain}
-#status {background:#08131b!important;z-index:4}
-#status-splash {display:none!important}
-#status:before {content:"AFTERHOURS";font-size:clamp(30px,7vw,76px);letter-spacing:.12em;color:#9ee4cf;margin-bottom:22px}
-#status:after {content:"THE TENTH PRESCRIPTION · SHIVAM GUPTA";font-size:12px;letter-spacing:.15em;margin-top:24px;color:#96aeb2}
-#status-progress {position:relative!important;left:auto!important;right:auto!important;bottom:auto!important;accent-color:#9ee4cf;width:280px;height:5px;max-width:75vw}
-#status-notice {max-width:640px;padding:24px;line-height:1.7;color:#e29682}
-#device-note {position:fixed;bottom:16px;left:16px;right:16px;background:#10232b;border:1px solid #36515a;color:#e8eadc;padding:16px;z-index:8;display:none;font:14px/1.5 sans-serif}
-@media (pointer:coarse) {#device-note{display:block}}
-
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0a161c">
+<meta name="description" content="Ten wards. Thirty forgotten names. Enter AFTERHOURS, an atmospheric pixel horror game by Shivam Gupta. Play in your browser.">
+<title>$GODOT_PROJECT_NAME</title>
+<style>
+:root{color-scheme:dark;--ink:#0a161c;--panel:#11232a;--paper:#e8e5d6;--muted:#a4b7b5;--mint:#a3e0ca;--line:#30464b;--gold:#e6b86c;--red:#e79c8a;font-family:Arial,Helvetica,sans-serif;background:var(--ink);color:var(--paper)}
+*{box-sizing:border-box}body{margin:0}button,a{-webkit-tap-highlight-color:transparent}button{font:inherit}button,a:focus-visible{outline:2px solid var(--gold);outline-offset:5px}a{color:inherit}button{cursor:pointer}button:disabled{cursor:wait;opacity:.65}button:active{transform:translateY(2px)}[hidden]{display:none!important}.mono{font-family:ui-monospace,SFMono-Regular,Consolas,monospace}.eyebrow{font-size:11px;line-height:1.6;text-transform:uppercase;letter-spacing:.16em;color:var(--mint)}
+.site-header{max-width:1240px;margin:auto;padding:27px 38px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);gap:20px}.brand{text-decoration:none;font-size:15px;letter-spacing:.15em;font-weight:700}.brand-mark{display:inline-block;width:11px;height:11px;margin-right:12px;background:var(--mint);box-shadow:4px -4px 0 #385d59}.header-links{display:flex;gap:25px;font-size:12px;color:var(--muted)}.header-links a{text-decoration:none}.header-links a:hover{color:var(--paper)}main{max-width:1240px;margin:auto}.hero{display:grid;grid-template-columns:.87fr 1.13fr;gap:48px;padding:70px 38px 62px;align-items:center}.hero h1{font-size:clamp(42px,5.5vw,72px);line-height:.97;letter-spacing:-.055em;margin:24px 0 12px;font-weight:700}.subtitle{font:italic clamp(20px,2.4vw,29px)/1.4 Georgia,serif;color:#cad2c7;margin:0 0 30px}.lede{font-size:16px;line-height:1.85;color:var(--muted);max-width:380px;margin-bottom:28px}.primary{border:1px solid var(--mint);background:var(--mint);color:#102329;padding:17px 23px;font-size:14px;font-weight:700;display:inline-flex;gap:30px;align-items:center;min-height:52px;box-shadow:4px 4px 0 #315048}.primary:hover{background:#bfefdc}.play-note{font:11px/1.7 ui-monospace,monospace;color:var(--muted);margin-top:18px}.art-wrap{position:relative;margin:0;isolation:isolate}.art-wrap:before{content:"";position:absolute;inset:-12px 12px 12px -12px;border:1px solid #35544f;z-index:-1}.hero-art{width:100%;display:block;image-rendering:pixelated;aspect-ratio:16/9;object-fit:cover;border:1px solid #45605c}.art-caption{font:10px/1.6 ui-monospace,monospace;letter-spacing:.09em;color:var(--muted);display:flex;justify-content:space-between;padding-top:13px;gap:15px}.art-caption span:first-child{color:var(--gold)}.facts{display:grid;grid-template-columns:repeat(3,1fr);border-block:1px solid var(--line);margin:0 38px}.fact{padding:25px 25px 25px 0}.fact+.fact{border-left:1px solid var(--line);padding-left:30px}.fact strong{font:25px/1.2 Georgia,serif;display:block;margin-bottom:8px}.fact span{font-size:12px;color:var(--muted);line-height:1.6}.section{padding:60px 38px}.section-title{font:30px/1.3 Georgia,serif;margin:10px 0 25px}.how-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:35px}.step-number{font:12px/1.6 ui-monospace,monospace;color:var(--gold)}.how-grid h3{font-size:16px;margin:14px 0 11px}.how-grid p,.about-copy{color:var(--muted);font-size:14px;line-height:1.85;margin:0}.controls-summary{display:flex;gap:20px;flex-wrap:wrap;margin-top:32px;border-top:1px solid var(--line);padding-top:24px;color:var(--muted);font-size:12px}kbd{display:inline-block;min-width:25px;text-align:center;border:1px solid #55706a;border-bottom-width:3px;background:#162c30;color:var(--paper);padding:4px 6px;font:11px ui-monospace,monospace;margin-right:5px}.about{border-top:1px solid var(--line);display:grid;grid-template-columns:1fr 1fr;gap:60px}.about .section-title{margin-top:12px}.about-copy p{margin:0 0 18px}.small-note{font-size:12px!important}.footer{max-width:1164px;margin:auto;padding:26px 0 35px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:20px;font-size:11px;line-height:1.8;color:var(--muted)}.footer-links{display:flex;gap:18px}.footer a{text-decoration:none}.footer a:hover{text-decoration:underline}
+#player{position:fixed;inset:0;background:#050b0f;z-index:30;display:grid;grid-template-rows:auto 1fr;overscroll-behavior:contain;padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}.player-bar{min-height:54px;padding:6px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--ink);border-bottom:1px solid var(--line)}.player-brand{font:11px ui-monospace,monospace;letter-spacing:.11em;color:var(--mint)}.player-actions{display:flex;gap:6px}.tool{min-height:40px;padding:8px 12px;background:#14262c;border:1px solid var(--line);color:var(--paper);font-size:12px}.tool:hover{border-color:var(--mint)}.stage{min-height:0;display:grid;place-items:center;position:relative;overflow:hidden}.game-frame{width:min(100%,calc((100dvh - 55px) * 16 / 9));aspect-ratio:16/9;position:relative;background:#08131b}#canvas{width:100%;height:100%;display:block;border:0;outline:none;touch-action:none}.loading{position:absolute;inset:0;display:grid;place-items:center;background:var(--ink);padding:25px}.loading-inner{text-align:center;max-width:430px}.loading h2{font:26px Georgia,serif;color:var(--paper)}.loading p{font-size:13px;line-height:1.8;color:var(--muted)}#status-progress{display:block;width:min(310px,70vw);height:5px;margin:25px auto;accent-color:var(--mint)}#status-notice{color:var(--red);white-space:pre-line;overflow-wrap:anywhere}#status-splash{display:none}.live-status{font:10px/1.5 ui-monospace,monospace;color:var(--muted);overflow:hidden;white-space:nowrap;text-overflow:ellipsis;max-width:38vw}.touch-deck{display:none;position:relative;align-items:center;justify-content:space-between;padding:8px 18px;background:#09151c;border-top:1px solid var(--line);touch-action:none;user-select:none;-webkit-user-select:none}.dpad{display:grid;grid-template-columns:repeat(3,44px);grid-template-rows:repeat(2,44px);gap:3px}.touch-key{width:44px;min-height:44px;background:#172d32;border:1px solid #48605c;color:var(--paper);font:13px ui-monospace,monospace;touch-action:none}.touch-key:active,.touch-key.held{background:var(--mint);color:var(--ink)}.dpad [data-x="0"][data-y="-1"]{grid-column:2}.dpad [data-x="-1"]{grid-column:1;grid-row:2}.dpad [data-y="1"]{grid-column:2;grid-row:2}.dpad [data-x="1"]{grid-column:3;grid-row:2}.touch-actions{display:flex;align-items:center;gap:8px}.touch-action{width:auto;min-width:54px;padding:8px}.touch-action small{display:block;font:9px Arial,sans-serif;margin-top:4px;color:inherit}.turn-phone{position:absolute;inset:0;z-index:8;background:#0a161cf5;display:none;align-items:center;justify-content:center;text-align:center;padding:30px}.turn-phone .rotate-icon{font-size:42px;color:var(--mint);margin-bottom:12px}.turn-phone h2{font:28px Georgia,serif}.turn-phone p{font-size:14px;line-height:1.8;color:var(--muted);max-width:320px}.turn-phone .tool{margin-top:15px}.help-dialog{border:1px solid #55706a;background:var(--ink);color:var(--paper);max-width:520px;width:calc(100% - 36px);padding:30px;box-shadow:0 15px 80px #0009}.help-dialog::backdrop{background:#02070bd9}.help-dialog h2{font:27px Georgia,serif;margin-top:0}.help-dialog p{font-size:14px;line-height:1.8;color:var(--muted)}.help-dialog .controls-summary{display:grid;gap:12px}.help-dialog .tool{margin-top:24px}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media(max-width:900px){.hero{gap:30px;padding-top:50px}.hero h1{font-size:47px}.header-links{gap:18px}.live-status{display:none}.about{gap:30px}.footer{margin:0 38px}.hero .lede{font-size:14px}}
+@media(max-width:650px){.site-header{padding:22px}.header-links a:last-child{display:none}.hero{grid-template-columns:1fr;padding:38px 22px 32px;gap:38px}.hero h1{font-size:clamp(43px,12vw,66px)}.hero .lede{max-width:100%;font-size:15px}.hero-art{max-height:330px}.facts{margin:0 22px}.fact{padding:21px 8px 21px 0}.fact+.fact{padding-left:14px}.fact strong{font-size:20px}.fact span{font-size:11px}.section{padding:40px 22px}.how-grid{grid-template-columns:1fr;gap:27px}.about{grid-template-columns:1fr;gap:15px}.footer{margin:0 22px;flex-direction:column;gap:12px}.player-brand{font-size:9px}.player-bar{padding:5px 8px}.tool{padding:8px 9px;min-height:40px}.player-actions{gap:4px}.header-links{font-size:11px}.art-caption{font-size:9px}}
+@media(pointer:coarse){#player,#player.touch-active{grid-template-rows:auto 1fr}.touch-deck{display:flex;position:absolute;left:0;right:0;bottom:0;z-index:5;min-height:104px;padding:8px;background:transparent;border:0;pointer-events:none}.touch-deck .dpad,.touch-deck .touch-actions{pointer-events:auto}.touch-actions{display:grid;grid-template-columns:repeat(2,54px);gap:6px}.touch-key{background:#132b32ed;box-shadow:0 1px 8px #0005}.touch-action{width:54px;min-height:44px;padding:5px}.game-frame,#player.touch-active .game-frame{width:min(100%,calc((100dvh - 55px) * 16 / 9))}.tool{min-height:44px}.touch-deck.inactive .dpad,.touch-deck.inactive .play-only{visibility:hidden}}
+@media(pointer:coarse) and (orientation:portrait){.turn-phone{display:flex}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
 </style>
-		$GODOT_HEAD_INCLUDE
-	</head>
-	<body>
-<div id="device-note">Keyboard required / 키보드 필요. For the best experience, play on a computer. <button onclick="this.parentElement.remove()">Dismiss / 닫기</button></div>
-		<canvas id="canvas">
-			Your browser does not support the canvas tag.
-		</canvas>
-
-		<noscript>
-			Your browser does not support JavaScript.
-		</noscript>
-
-		<div id="status">
-			<img id="status-splash" class="$GODOT_SPLASH_CLASSES" src="$GODOT_SPLASH" alt="">
-			<progress id="status-progress"></progress>
-			<div id="status-notice"></div>
-		</div>
-
-		<script src="$GODOT_URL"></script>
-		<script>
+$GODOT_HEAD_INCLUDE
+</head>
+<body>
+<div id="website">
+<header class="site-header"><a href="#" class="brand mono"><span class="brand-mark" aria-hidden="true"></span>AFTERHOURS</a><nav class="header-links" aria-label="Page"><a href="#how">How to play</a><a href="#about">The story</a><a href="#privacy">Your progress</a></nav></header>
+<main>
+<section class="hero" aria-labelledby="hero-title"><div><div class="eyebrow mono">A pixel horror story by Shivam Gupta</div><h1 id="hero-title">AFTERHOURS</h1><p class="subtitle">The Tenth Prescription</p><p class="lede">The pharmacy closed ten years ago. Tonight, its lights came back on. Thirty forgotten names are waiting for someone to remember.</p><button id="enter" class="primary">Enter the pharmacy <span aria-hidden="true">↗</span></button><p class="play-note">PLAY IN YOUR BROWSER · NO DOWNLOAD REQUIRED<br>Keyboard or landscape touch controls</p></div><figure class="art-wrap"><img class="hero-art" src="assets/title_art.png" width="640" height="360" alt="Pixel illustration of a dim pharmacy, a lone figure and a shadow waiting at the end of an aisle."><figcaption class="art-caption"><span>THE NIGHT SHIFT IS STILL OPEN.</span><span>01 / 10 WARDS</span></figcaption></figure></section>
+<div class="facts" aria-label="Game features"><div class="fact"><strong>Ten wards</strong><span>Distinct routes. Escalating danger.</span></div><div class="fact"><strong>Thirty names</strong><span>Every record belongs to someone.</span></div><div class="fact"><strong>One light</strong><span>Your way forward. Your last defense.</span></div></div>
+<section id="how" class="section"><div class="eyebrow mono">A little light goes a long way</div><h2 class="section-title">Remember the names. Survive the night.</h2><div class="how-grid"><article><span class="step-number">01 / REVEAL</span><h3>Look closer.</h3><p>Three sealed records wait in each ward. A light pulse reveals their names and holds nearby shadows still. Every pulse costs charge.</p></article><article><span class="step-number">02 / RECOVER</span><h3>Make a quiet return.</h3><p>Collect the records, then reach the dispensing hatch. Sneak, hide in cabinets, and choose when to recharge. The station's hum attracts attention.</p></article><article><span class="step-number">03 / REMEMBER</span><h3>Finish what was left behind.</h3><p>Alarms, darkness and hazardous residue change the route ahead. Recover the story of the last pharmacist, then decide what this place remembers.</p></article></div><div class="controls-summary"><span><kbd>WASD</kbd> / <kbd>↑ ↓ ← →</kbd> Move</span><span><kbd>Space</kbd> Reveal + pulse</span><span><kbd>E</kbd> Collect / use</span><span><kbd>Shift</kbd> Sneak</span><span><kbd>Esc</kbd> Pause</span></div></section>
+<section id="about" class="section about"><div><div class="eyebrow mono">Not every shadow wants to be forgotten</div><h2 class="section-title">The bell is still ringing.<br>Someone is still waiting.</h2></div><div class="about-copy"><p>A receipt prints your name beside ten unfinished prescriptions. Inside the abandoned pharmacy, your sister's records tell a story the official archive tried to erase.</p><p>AFTERHOURS is a compact, complete horror story about the weight of being forgotten. Its shadows belong to the supernatural world. Its pharmacy is fictional.</p><p class="small-note">Atmospheric horror with darkness, pursuit and light effects. Headphones are optional. In-game settings include gentler difficulty, high visibility and reduced atmospheric effects.</p></div></section>
+<section id="privacy" class="section about"><div><div class="eyebrow mono">Stay for the story. Return when you need to.</div><h2 class="section-title">Your shift.<br>Your device.</h2></div><div class="about-copy"><p>Create a local profile and continue from completed wards. Your progress stays in this browser on this device. No password, cloud account or subscription is required.</p><p class="small-note">Clearing site data, private browsing, changing browsers or switching devices can remove or separate your save. Profiles are local names, not online authentication. The game does not synchronize progress to a server.</p><button class="tool" id="enter-bottom">Step inside ↗</button></div></section>
+</main><footer class="footer"><span>AFTERHOURS: THE TENTH PRESCRIPTION<br>Created by Shivam Gupta · 2026</span><div class="footer-links"><a href="https://github.com/shi1720/afterhours-tenth-prescription" target="_blank" rel="noopener noreferrer">Source & credits ↗</a><a href="#privacy">Local progress</a></div></footer>
+</div>
+<div id="accessible-status" class="sr-only" role="status" aria-live="polite"></div>
+<section id="player" aria-label="AFTERHOURS game" hidden>
+<header class="player-bar"><span class="player-brand">AFTERHOURS <span id="live-status" class="live-status" aria-live="off"></span></span><div class="player-actions"><button id="audio-button" class="tool" aria-pressed="false">Sound on</button><button id="help-button" class="tool">Help</button><button id="fullscreen-button" class="tool">Fullscreen</button><button id="leave-button" class="tool">Leave</button></div></header>
+<div class="stage"><div class="game-frame"><canvas width="1280" height="720" id="canvas" tabindex="0" aria-label="AFTERHOURS game. Use WASD or arrows to move, Space to reveal records, E to collect, Shift to sneak, Escape to pause.">Your browser does not support the canvas needed to play this game.</canvas><div id="status" class="loading" style="background:$GODOT_SPLASH_COLOR"><div class="loading-inner"><div class="eyebrow mono">The light is coming on</div><h2 id="loading-title">Opening the pharmacy</h2><progress id="status-progress" aria-label="Game loading progress"></progress><p id="loading-copy">The first visit may take a moment.</p><p id="status-notice" role="alert" hidden></p><button id="retry-button" class="tool" hidden>Retry loading</button><img id="status-splash" class="$GODOT_SPLASH_CLASSES" src="$GODOT_SPLASH" alt=""></div></div></div><div class="turn-phone"><div><div class="rotate-icon" aria-hidden="true">▯ ↻ ▭</div><h2>Turn toward the dark.</h2><p>Rotate your phone to landscape for the full pharmacy and touch controls.</p><button class="tool" id="portrait-leave">Back to the page</button></div></div></div>
+<div id="touch-deck" class="touch-deck inactive" hidden aria-label="Touch controls"><div class="dpad" aria-label="Movement"><button class="touch-key" data-x="0" data-y="-1" aria-label="Move up">↑</button><button class="touch-key" data-x="-1" data-y="0" aria-label="Move left">←</button><button class="touch-key" data-x="0" data-y="1" aria-label="Move down">↓</button><button class="touch-key" data-x="1" data-y="0" aria-label="Move right">→</button></div><div class="touch-actions"><button id="touch-use" class="touch-key touch-action play-only">E<small>Use</small></button><button id="touch-pulse" class="touch-key touch-action play-only">✦<small>Pulse</small></button><button id="touch-sneak" class="touch-key touch-action play-only" aria-pressed="false">⇧<small>Sneak</small></button><button id="touch-pause" class="touch-key touch-action" hidden>Ⅱ<small>Pause</small></button></div></div>
+</section>
+<dialog id="help-dialog" class="help-dialog"><h2>Keep a little light.</h2><p>Space reveals nearby sealed names and stuns shadows. Move closer, then press E to collect. Recover all three records and use the hatch at the lower right.</p><div class="controls-summary"><span><kbd>WASD</kbd> or arrows to move</span><span><kbd>Space</kbd> Reveal names / stun shadows</span><span><kbd>E</kbd> Collect, recharge, hide or use hatch</span><span><kbd>Shift</kbd> Hold to sneak</span><span><kbd>Esc</kbd> Pause or resume</span></div><p>On a phone, turn to landscape and use the controls below the game. High visibility and gentler difficulty are available in the game settings.</p><button id="close-help" class="tool">Back to the pharmacy</button></dialog>
+<noscript><p style="padding:30px">JavaScript is required to enter the pharmacy. Enable it in your browser to play.</p></noscript>
+<script>
+'use strict';
 const GODOT_CONFIG = $GODOT_CONFIG;
 const GODOT_THREADS_ENABLED = $GODOT_THREADS_ENABLED;
-const engine = new Engine(GODOT_CONFIG);
-
-(function () {
-	const statusOverlay = document.getElementById('status');
-	const statusProgress = document.getElementById('status-progress');
-	const statusNotice = document.getElementById('status-notice');
-
-	let initializing = true;
-	let statusMode = '';
-
-	function setStatusMode(mode) {
-		if (statusMode === mode || !initializing) {
-			return;
-		}
-		if (mode === 'hidden') {
-			statusOverlay.remove();
-			initializing = false;
-			return;
-		}
-		statusOverlay.style.visibility = 'visible';
-		statusProgress.style.display = mode === 'progress' ? 'block' : 'none';
-		statusNotice.style.display = mode === 'notice' ? 'block' : 'none';
-		statusMode = mode;
-	}
-
-	function setStatusNotice(text) {
-		while (statusNotice.lastChild) {
-			statusNotice.removeChild(statusNotice.lastChild);
-		}
-		const lines = text.split('\n');
-		lines.forEach((line) => {
-			statusNotice.appendChild(document.createTextNode(line));
-			statusNotice.appendChild(document.createElement('br'));
-		});
-	}
-
-	function displayFailureNotice(err) {
-		console.error(err);
-		if (err instanceof Error) {
-			setStatusNotice(err.message);
-		} else if (typeof err === 'string') {
-			setStatusNotice(err);
-		} else {
-			setStatusNotice('An unknown error occurred.');
-		}
-		setStatusMode('notice');
-		initializing = false;
-	}
-
-	const missing = Engine.getMissingFeatures({
-		threads: GODOT_THREADS_ENABLED,
-	});
-
-	if (missing.length !== 0) {
-		if (GODOT_CONFIG['serviceWorker'] && GODOT_CONFIG['ensureCrossOriginIsolationHeaders'] && 'serviceWorker' in navigator) {
-			let serviceWorkerRegistrationPromise;
-			try {
-				serviceWorkerRegistrationPromise = navigator.serviceWorker.getRegistration();
-			} catch (err) {
-				serviceWorkerRegistrationPromise = Promise.reject(new Error('Service worker registration failed.'));
-			}
-			// There's a chance that installing the service worker would fix the issue
-			Promise.race([
-				serviceWorkerRegistrationPromise.then((registration) => {
-					if (registration != null) {
-						return Promise.reject(new Error('Service worker already exists.'));
-					}
-					return registration;
-				}).then(() => engine.installServiceWorker()),
-				// For some reason, `getRegistration()` can stall
-				new Promise((resolve) => {
-					setTimeout(() => resolve(), 2000);
-				}),
-			]).then(() => {
-				// Reload if there was no error.
-				window.location.reload();
-			}).catch((err) => {
-				console.error('Error while registering service worker:', err);
-			});
-		} else {
-			// Display the message as usual
-			const missingMsg = 'Error\nThe following features required to run Godot projects on the Web are missing:\n';
-			displayFailureNotice(missingMsg + missing.join('\n'));
-		}
-	} else {
-		setStatusMode('progress');
-		engine.startGame({
-			'onProgress': function (current, total) {
-				if (current > 0 && total > 0) {
-					statusProgress.value = current;
-					statusProgress.max = total;
-				} else {
-					statusProgress.removeAttribute('value');
-					statusProgress.removeAttribute('max');
-				}
-			},
-		}).then(() => {
-			setStatusMode('hidden');
-		}, displayFailureNotice);
-	}
-}());
-		</script>
-	</body>
+const GODOT_SCRIPT_URL = '$GODOT_URL';
+(() => {
+ const $ = id => document.getElementById(id);
+ const player=$('player'), canvas=$('canvas'), status=$('status'), progress=$('status-progress'), notice=$('status-notice'), help=$('help-dialog');
+ let engine=null, starting=false, ready=false, scriptPromise=null, muted=false, screen='', level=0, helpPaused=false, leftPaused=false, spokenState='';
+ const held=new Map(); let sneakHeld=false;
+ function updateLayout(){input('layout',{value:matchMedia('(pointer:coarse)').matches || innerWidth<900});}
+ function input(command,extra={}){if(typeof window.afterhoursInput==='function')window.afterhoursInput(JSON.stringify({command,...extra}));}
+ function move(){let x=0,y=0;for(const v of held.values()){x+=v.x;y+=v.y;}if(x&&y){const d=Math.hypot(x,y);x/=d;y/=d;}input('move',{x:Math.max(-1,Math.min(1,x)),y:Math.max(-1,Math.min(1,y))});}
+ function releaseAll(){held.clear();move();sneakHeld=false;input('sneak',{value:false});$('touch-sneak').classList.remove('held');$('touch-sneak').setAttribute('aria-pressed','false');document.querySelectorAll('.touch-key.held').forEach(b=>b.classList.remove('held'));}
+ function showFailure(error){starting=false;status.hidden=false;notice.hidden=false;notice.textContent=(error&&error.message)?error.message:String(error||'The pharmacy could not open. Check your connection and try again.');$('loading-title').textContent='The light did not come on.';$('loading-copy').textContent='Your saved progress will stay in this browser.';progress.hidden=true;$('retry-button').hidden=false;}
+ function loadEngine(){if(window.Engine)return Promise.resolve();if(scriptPromise)return scriptPromise;scriptPromise=new Promise((resolve,reject)=>{const script=document.createElement('script');script.src=GODOT_SCRIPT_URL;script.onload=()=>window.Engine?resolve():reject(new Error('The game engine did not load.'));script.onerror=()=>reject(new Error('Could not download the game. Check your connection and retry.'));document.body.appendChild(script);});return scriptPromise;}
+ async function start(){player.hidden=false;$('website').inert=true;document.body.style.overflow='hidden';if(ready){if(leftPaused&&screen==='pause')input('pause');leftPaused=false;canvas.focus();return;}if(starting)return;starting=true;status.hidden=false;try{await loadEngine();const missing=Engine.getMissingFeatures({threads:GODOT_THREADS_ENABLED});if(missing.length)throw new Error('This browser is missing game support: '+missing.join(', ')+'. Try a recent version of Chrome, Firefox, Edge or Safari.');engine=new Engine({...GODOT_CONFIG,canvas});await engine.startGame({canvas,onProgress(current,total){if(total>0){progress.max=total;progress.value=current;$('loading-copy').textContent='Loading the night shift: '+Math.round(current/total*100)+'%';}else{progress.removeAttribute('value');$('loading-copy').textContent='Preparing the night shift...';}}});ready=true;starting=false;status.hidden=true;updateLayout();input('mute',{value:muted});if(!player.hidden)canvas.focus();else if(screen==='game'){input('pause');leftPaused=true;}}catch(err){showFailure(err);}}
+ function leave(){releaseAll();if(ready&&screen==='game'){input('pause');leftPaused=true;}else leftPaused=false;player.hidden=true;$('website').inert=false;document.body.style.overflow='';$('enter').textContent=ready?'Return to the pharmacy ↗':'Enter the pharmacy ↗';$('enter').focus();}
+ $('enter').addEventListener('click',start);$('enter-bottom').addEventListener('click',start);$('leave-button').addEventListener('click',leave);$('portrait-leave').addEventListener('click',leave);
+ $('retry-button').addEventListener('click',()=>location.reload());
+ $('audio-button').addEventListener('click',()=>{muted=!muted;input('mute',{value:muted});$('audio-button').textContent=muted?'Sound off':'Sound on';$('audio-button').setAttribute('aria-pressed',String(muted));canvas.focus();});
+ $('fullscreen-button').addEventListener('click',async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else if(player.requestFullscreen)await player.requestFullscreen();else{$('fullscreen-button').textContent='Use browser fullscreen';}}catch(e){$('fullscreen-button').textContent='Fullscreen unavailable';}});
+ document.addEventListener('fullscreenchange',()=>{$('fullscreen-button').textContent=document.fullscreenElement?'Exit fullscreen':'Fullscreen';});
+ $('help-button').addEventListener('click',()=>{releaseAll();helpPaused=ready&&screen==='game';if(helpPaused)input('pause');help.showModal();});
+ $('close-help').addEventListener('click',()=>help.close());help.addEventListener('close',()=>{if(helpPaused&&screen==='pause')input('pause');helpPaused=false;canvas.focus();});
+ document.querySelectorAll('.dpad button').forEach(button=>{button.addEventListener('pointerdown',event=>{event.preventDefault();if(screen!=='game')return;button.setPointerCapture(event.pointerId);held.set(event.pointerId,{x:Number(button.dataset.x),y:Number(button.dataset.y)});button.classList.add('held');move();});const release=event=>{held.delete(event.pointerId);button.classList.remove('held');move();};button.addEventListener('pointerup',release);button.addEventListener('pointercancel',release);button.addEventListener('lostpointercapture',release);});
+ $('touch-use').addEventListener('click',()=>{if(screen==='game')input('use');});$('touch-pulse').addEventListener('click',()=>{if(screen==='game')input('pulse');});
+ $('touch-sneak').addEventListener('pointerdown',event=>{event.preventDefault();if(screen!=='game')return;$('touch-sneak').setPointerCapture(event.pointerId);sneakHeld=true;input('sneak',{value:true});$('touch-sneak').classList.add('held');$('touch-sneak').setAttribute('aria-pressed','true');});
+ const stopSneak=()=>{sneakHeld=false;input('sneak',{value:false});$('touch-sneak').classList.remove('held');$('touch-sneak').setAttribute('aria-pressed','false');};['pointerup','pointercancel','lostpointercapture'].forEach(name=>$('touch-sneak').addEventListener(name,stopSneak));
+ $('touch-pause').addEventListener('click',()=>{releaseAll();if(screen==='game'||screen==='pause')input('pause');});
+ window.addEventListener('afterhours-state',event=>{let state=event.detail;try{if(typeof state==='string')state=JSON.parse(state);}catch(e){return;}if(!state||typeof state!=='object')return;const previous=screen;screen=String(state.screen||'');level=Number(state.level||0);const announcement=screen==='game'?'Ward '+(level+1)+'. '+Math.max(0,Number(state.records)||0)+' of 3 names recovered.':screen==='pause'?'Game paused.':'';if(announcement!==spokenState){spokenState=announcement;$('accessible-status').textContent=announcement;}const touchActive=screen==='game'||screen==='pause';$('touch-deck').hidden=!touchActive;player.classList.toggle('touch-active',touchActive);$('touch-deck').classList.toggle('inactive',screen!=='game');$('touch-pause').hidden=screen!=='game'&&screen!=='pause';if(previous==='game'&&screen!=='game')releaseAll();$('touch-pause').firstChild.textContent=screen==='pause'?'▶':'Ⅱ';$('touch-pause').querySelector('small').textContent=screen==='pause'?'Resume':'Pause';if(screen==='game')$('live-status').textContent=' / WARD '+String(level+1).padStart(2,'0')+' / '+Math.max(0,Number(state.records)||0)+'/3 NAMES / '+Math.round(Number(state.charge)||0)+'% CHARGE / '+Math.round(Number(state.resolve)||0)+' RESOLVE';else $('live-status').textContent=screen==='pause'?' / PAUSED':'';});
+ window.addEventListener('blur',releaseAll);document.addEventListener('visibilitychange',()=>{if(document.hidden){releaseAll();if(ready&&screen==='game')input('pause');}});window.addEventListener('orientationchange',()=>{releaseAll();updateLayout();});window.addEventListener('resize',updateLayout);
+})();
+</script>
+</body>
 </html>

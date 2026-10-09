@@ -1,32 +1,30 @@
-# Release candidate scope and player notes
+# Current release scope
 
-## Included scope
+AFTERHOURS is an English pixel horror game with ten authored pharmacy rooms, thirty fictional names, local progression and two final story choices. The browser player includes desktop controls and landscape touch controls. A first-launch field guide introduces the mechanics. Pause, retry, archive and settings complete the player flow.
 
-Ten sequential wards, three sealed records per ward and thirty fictional names across ten authored layouts, a dispensing hatch objective, defensive light pulse, hiding cabinets, charging stations, escalating threats and a final story choice. The interface includes English/Korean selection, local profiles, tutorial, campaign, separate demo, pause, retry and settings. Read `QA_SELF_REVIEW.md`, `TEST_REPORT.md` and `BROWSER_QA.md` for executed evidence and exact limits.
+## Survival rules
+
+- Pulse costs 24 charge. It reveals sealed records and stuns nearby shadows for 2.6 seconds. Its cooldown is 4.2 seconds. The sound can alert distant shadows.
+- Press Use near a revealed record, then stay still for a 0.9-second recovery. A recovery returns some charge.
+- All three records unlock the dispensing hatch.
+- Sneaking reduces movement noise. Enemies can also see the player, so quiet steps alone do not guarantee safety.
+- Cabinets break pursuit. Charging restores charge and some resolve, but attracts shadows and has a reuse delay.
+- Timed darkness, twelve-second alarms and pulsing spills change safe routes. Later rooms introduce faster or multiple pursuers.
+
+Every room has its own arrival text, environmental setpiece, sound cue and memory. Shadows represent the supernatural weight of forgotten names. They do not depict mental illness.
 
 ## Controls
 
-WASD/arrows move. Hold Shift to sneak. Press E near a record, cabinet, charger or hatch. Press E again to leave hiding. Space emits a pulse when sufficient battery is available. Pulse within 165 pixels of a sealed record to reveal it, then E nearby to collect it. The same 18-charge pulse stuns nearby shadows for 4.5 seconds; each recovered name returns 8 charge. Escape pauses. Click the browser game first if keyboard input does not respond.
+WASD or arrows move. Shift sneaks. Space pulses. E recovers records or uses nearby objects. Escape pauses. Landscape touch uses the direction pad, Sneak, Pulse, Use and Pause controls.
 
-A charge restores battery and some composure; it also attracts shadows. Stations have a short reuse delay. Collect all three records before using the hatch. If caught, retry the current ward. Preserve browser data to keep local progress.
+## Accessibility and privacy
 
-## Accessibility and content
+Settings offer gentler difficulty, high visibility, volume and atmospheric animation controls. Functional warnings remain visible. No screen-reader, accessibility certification, controller or full key-remapping claim is made.
 
-Headphones are optional; objectives and resource information are visual. The horror uses low light, chasing spectral figures, alarm color and defensive pulse effects. This release does not claim full screen-reader support, complete keyboard remapping, controller support, mobile controls, certified photosensitivity safety or compliance with an accessibility standard. Settings offer master volume, a gentler mode, high visibility and atmospheric animation controls. Gentler mode reduces pursuer speed and damage; high visibility brightens darkness, and the atmospheric animation toggle disables pulse rings, title scanlines and filament flicker. It does not remove all hazard or alarm indicators. If light effects are uncomfortable, stop playing; no game can guarantee a universally safe visual experience.
+A profile identifies local progress, not an online account. Browser data belongs to this browser and origin. There is no cloud save or cross-device transfer. The Firebase address and earlier Pages address have separate storage.
 
-## Storage and account boundaries
+## Readiness
 
-A profile is a local name and save slot, not an authenticated online identity. There are no passwords, cloud saves or cross-device synchronization. Browser private mode, cleared site data, storage eviction or a different origin can reset progress. Desktop persistence uses the application's Godot user-data directory. Never use the profile name to store sensitive information.
+The current Godot 4.5 native suite passes 9,043 assertions with zero failures, including all ten normal-mode routes. Public Firebase play in Chrome verified the first room through ordinary keyboard input, interactions, pause, defeat/retry and checkpoint continuation after reload. Chrome landscape emulation at 844 by 390 rendered the menu and Ward 2 continuation.
 
-## Executed release evidence
-
-- Godot 4.5 native headless suite: 4,945 assertions, 0 failures, clean exit, including all ten active-enemy objective routes.
-- Real Chrome Web export at localhost: clean load, local profile and reload persistence, guide/skip, physical movement, all three Ward 1 reveal/collect actions and hatch completion, pause/settings, Korean switch and high visibility.
-- Universal unsigned macOS export: headless startup smoke check exited 0 without errors. Windows/Linux exports were generated but not executed on this host.
-- Actual two-minute gameplay video: `AFTERHOURS_GAMEPLAY.mp4`, with original audio. It has no spoken human narration.
-
-Both public Pages deployments succeeded. The refined public title/menu was visually verified in Chrome; the localhost playthrough also verified Ward 2 checkpoint continuation after reload. The final packaged macOS startup smoke check passed again after the label patch. macOS signing/notarization, Windows/Linux execution, broad browser coverage, native Korean review and first-player balance remain outside the established evidence.
-
-## Verification boundaries
-
-This is a jam release candidate. Automated tests can check campaign reachability, state transitions and build validity; they cannot establish subjective enjoyment, human localization quality, broad hardware performance or commercial demand. Record the actual tested browser and build in the final QA report. Current limitations are finite scope choices, not hidden promises of future services.
+Final overlay touch input, physical devices, other browsers, full browser endings and human playtesting retain separate evidence gaps. See `RELEASE_CHECKLIST.md`. The current 67-second official video shows actual first-three-ward play with generic synthetic narration. It does not claim a complete campaign recording or Shivam's spoken voice.

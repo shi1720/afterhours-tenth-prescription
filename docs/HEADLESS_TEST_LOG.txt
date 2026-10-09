@@ -1,14 +1,14 @@
 Godot Engine v4.5.stable.official.876b29033 - https://godotengine.org
 
 AFTERHOURS deterministic simulation and application integration QA
-PLAYTHROUGH ward=01 seconds=13.97 resolve=100.0 charge=24.2 records=3
-PLAYTHROUGH ward=02 seconds=14.53 resolve=100.0 charge=59.8 records=3
-PLAYTHROUGH ward=03 seconds=13.83 resolve=100.0 charge=60.3 records=3
-PLAYTHROUGH ward=04 seconds=15.15 resolve=100.0 charge=59.4 records=3
-PLAYTHROUGH ward=05 seconds=16.35 resolve=100.0 charge=58.6 records=3
-PLAYTHROUGH ward=06 seconds=13.95 resolve=100.0 charge=52.6 records=3
-PLAYTHROUGH ward=07 seconds=13.32 resolve=100.0 charge=60.7 records=3
-PLAYTHROUGH ward=08 seconds=12.15 resolve=100.0 charge=61.5 records=3
-PLAYTHROUGH ward=09 seconds=16.33 resolve=100.0 charge=40.6 records=3
-PLAYTHROUGH ward=10 seconds=15.73 resolve=92.4 charge=41.0 records=3
-RESULT: 4945 checks, 0 failures
+PLAYTHROUGH ward=01 seconds=19.52 resolve=66.0 charge=38.3 records=3
+PLAYTHROUGH ward=02 seconds=20.73 resolve=100.0 charge=13.5 records=3
+PLAYTHROUGH ward=03 seconds=20.02 resolve=100.0 charge=14.0 records=3
+PLAYTHROUGH ward=04 seconds=20.90 resolve=95.2 charge=13.4 records=3
+PLAYTHROUGH ward=05 seconds=22.47 resolve=66.0 charge=12.3 records=3
+PLAYTHROUGH ward=06 seconds=20.85 resolve=100.0 charge=4.7 records=3
+PLAYTHROUGH ward=07 seconds=18.68 resolve=32.0 charge=14.9 records=3
+PLAYTHROUGH ward=08 seconds=17.25 resolve=85.9 charge=39.9 records=3
+PLAYTHROUGH ward=09 seconds=23.77 resolve=66.0 charge=11.4 records=3
+PLAYTHROUGH ward=10 seconds=21.60 resolve=55.8 charge=12.9 records=3
+RESULT: 9043 checks, 0 failures

@@ -1,38 +1,30 @@
-# Reproducible gameplay montage
+# Official video provenance
 
-`tests/record_trailer.gd` captures an approximately 120-second montage at 1280×720 and 30 fps. It uses normal gameplay processing: actual path movement, active enemies/hazards, battery expenditure, light revelation, E interactions and successful ward completion. It does not teleport the player during gameplay.
+`AFTERHOURS_OFFICIAL_DEMO.mp4` is the current 67-second product video. It has 1280 by 720 frames at 30 fps, H.264 video, AAC audio, English captions and original game audio beneath a generic AndrewNeural synthetic narrator. The voice is not Shivam Gupta's voice. No human voiceover is claimed.
 
-The sequence selects Wards 1, 3 and 8 directly. The final choice and ending are an editorial preview. Describe the result as a gameplay montage, not an uninterrupted recording of completing all ten wards. The archive shows only the three records earned in this take.
+The final spoken text is in `NARRATION.txt`. Its audio lasts 66.888 seconds. `AFTERHOURS_NARRATION_EN.srt` contains the current timed captions. The source footage was recorded in Godot using real simulation, resource expenditure, recovery channels and enemies. A deterministic recording pilot selects the first three wards directly; this is a montage rather than an uninterrupted human playthrough.
 
-User saves are protected by a recording-only application subclass overriding `save()` to do nothing. The fixture reads startup state but then sets its own in-memory profile and preferences. It never alters campaign progress on disk. Headless dry-run disables audio playback; the real rendered movie keeps sound.
+## Edit
 
-From the project root, substituting the installed Godot executable:
+The exact source selection is below. Audio from each game segment follows its video. The assembly lowers game audio to 0.16, mixes the narration at 1.1, applies a 0.95 limiter, burns captions and exports with fast-start metadata.
 
-```sh
-Godot --path . --script tests/record_trailer.gd --fixed-fps 30 --disable-vsync --write-movie /absolute/path/afterhours-trailer.avi
-ffmpeg -y -i /absolute/path/afterhours-trailer.avi -c:v libx264 -preset medium -crf 19 -pix_fmt yuv420p -c:a aac -b:a 192k -movflags +faststart /absolute/path/AFTERHOURS_GAMEPLAY.mp4
-```
+| Output timeline | Source seconds | Actual footage |
+| --- | --- | --- |
+| 00:00.000 to 00:05.000 | 0 to 5 | Opening title |
+| 00:05.000 to 00:10.000 | 12 to 17 | Ward 1 briefing |
+| 00:10.000 to 00:13.000 | 6 to 9 | Pulse field-guide card |
+| 00:13.000 to 00:23.000 | 17 to 27 | Ward 1 actual gameplay |
+| 00:23.000 to 00:34.500 | 27 to 38.5 | Ward 1 actual gameplay continued |
+| 00:34.500 to 00:40.000 | 49.5 to 55 | Ward 2 transition into actual gameplay |
+| 00:40.000 to 00:49.000 | 55 to 64 | Ward 2 actual gameplay |
+| 00:49.000 to 00:58.000 | 82.7 to 91.7 | Ward 3 actual alarm gameplay |
+| 00:58.000 to 01:03.000 | 105 to 110 | Earned Ward 3 completion memory |
+| 01:03.000 to 01:07.000 | 131 to 135 | Closing title |
 
-Do not use `--headless` for the actual movie; it disables rendering. For a fast control-flow check only, use `--headless --fixed-fps 30` and omit `--write-movie`. Movie writing can run faster or slower than the footage duration; its fixed simulation rate preserves real-time gameplay when played back at 30fps.
+The final film includes no archive, final-choice or ending preview from the longer source capture. References in the narration to later wards describe the implemented game, but the film itself shows only the first three wards. It does not demonstrate touch controls, every setting, all ten routes or an entire ending.
 
-## Dry-run shot timings
+## Publication
 
-| Time | Shot |
-|---|---|
-| 00:00–00:06 | Title |
-| 00:06–00:12 | Light-pulse field guide |
-| 00:12–00:17 | Ward 1 briefing |
-| 00:17–00:33.67 | Ward 1 actual gameplay |
-| 00:33.67–00:39.67 | Earned memory |
-| 00:39.67–00:44.67 | Ward 3 briefing |
-| 00:44.67–01:00.87 | Ward 3 actual alarm gameplay |
-| 01:00.87–01:06.87 | Earned memory |
-| 01:06.87–01:11.87 | Korean Ward 8 briefing |
-| 01:11.87–01:26.60 | Korean Ward 8 actual gameplay |
-| 01:26.60–01:32.60 | Earned memory |
-| 01:32.60–01:37.60 | Archive |
-| 01:37.60–01:42.60 | Editorial preview of final choice |
-| 01:42.60–01:52.60 | Editorial preview of remember ending |
-| 01:52.60–01:59.60 | Closing title |
+YouTube release: https://youtu.be/L6kt6Z9vEp4 . Public status still requires confirmation. The earlier two-minute video and its earlier scripts belong to an older build and must not replace the current media.
 
-The log prints actual shot markers and rejects a failed gameplay take with nonzero exit status. Review the rendered output and audio before publishing. A clean headless control-flow run is not visual/audio verification of the resulting video.
+For a later human narration, Shivam may read the same exact script and replace the generic voice. Do not imply that step has already happened. Recheck subtitle timing and audio mix after any replacement.

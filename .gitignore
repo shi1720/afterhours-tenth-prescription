@@ -6,3 +6,7 @@ build/
 export/
 *.avi
 .ci/
+
+.firebase/
+
+firebase-debug.log*

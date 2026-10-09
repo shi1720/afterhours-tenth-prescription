@@ -29,13 +29,24 @@ func fresh(ward: Node, index: int = 0) -> void:
 func check_labels(app: Node, context: String) -> void:
 	# Direct UI labels; archive content is deliberately scrollable and excluded.
 	for child in app.ui.get_children():
+		if (child is Label or child is Button) and child.visible:
+			check(not child.text.contains("—"), context+" avoids em dash")
+			var english_only := true
+			for character in child.text.length():
+				if child.text.unicode_at(character) >= 0xac00 and child.text.unicode_at(character) <= 0xd7af: english_only = false
+			check(english_only, context+" uses English text only")
+		if child is ProgressBar and child.visible:
+			var bar_rect: Rect2 = child.get_global_rect()
+			check(bar_rect.position.x >= -1 and bar_rect.position.y >= -1 and bar_rect.end.x <= 1281 and bar_rect.end.y <= 721, context+" progress bar inside viewport "+str(bar_rect))
 		if child is Label and child.visible:
 			var rect: Rect2 = child.get_global_rect()
 			check(rect.position.x >= -1 and rect.position.y >= -1 and rect.end.x <= 1281 and rect.end.y <= 721, context+" label inside viewport "+str(rect)+": "+child.text.left(32))
 			check(child.get_line_count()*child.get_line_height() <= rect.size.y+2, context+" label lines fit height: "+child.text.left(32))
 
 func stop_audio(node: Node) -> void:
-	if node is AudioStreamPlayer: node.stop()
+	if node is AudioStreamPlayer:
+		node.stop()
+		node.stream = null
 	for child in node.get_children(): stop_audio(child)
 
 func run() -> void:
@@ -73,7 +84,7 @@ func run() -> void:
 		for c in w.hazards: check(w.grid[c.y][c.x] == 0, "Ward %d hazard on walkable tile" % (i+1))
 		check(not w.passable(Vector2(0,0)), "Ward %d boundary collision" % (i+1))
 		for key in ["title","rule","memory","patient"]:
-			check(Data.WARDS[i][key].size() == 2 and not Data.WARDS[i][key][0].is_empty() and not Data.WARDS[i][key][1].is_empty(), "Ward %d bilingual %s" % [i+1,key])
+			check(Data.WARDS[i][key].size() >= 1 and not Data.WARDS[i][key][0].is_empty(), "Ward %d English %s" % [i+1,key])
 		# Traverse a real path by applying movement at 60Hz (enemies isolated for geometry test).
 		w.enemies.clear()
 		var path: PackedVector2Array = w.astar.get_point_path(w.cell(w.player),w.cell(w.hatch))
@@ -99,6 +110,8 @@ func run() -> void:
 			check(w.revealed.has(point), "Ward %d pulse reveals nearby record" % (i+1))
 			check(w.prompt() == "record", "Ward %d record proximity prompt" % (i+1))
 			w.interact()
+			check(w.collected == previous_count and w.recovery_target == point, "Ward %d starts stationary recovery channel" % (i+1))
+			for frame in 58: w.step(1.0/60.0)
 		check(w.collected == 3 and w.fragments.is_empty(), "Ward %d all records recovered exactly once" % (i+1))
 		w.player = w.hatch
 		w.interact()
@@ -119,20 +132,62 @@ func run() -> void:
 	fresh(w)
 	w.enemies[0].pos = w.player+Vector2(50,0)
 	w.pulse()
-	check(w.battery == 82 and w.cooldown == 1.8 and w.enemies[0].stun == 4.5, "Pulse consumes 18 charge and stuns nearby enemy for 4.5 sec")
+	check(w.battery == 76 and w.cooldown == 4.2 and w.enemies[0].stun == 2.6, "Pulse consumes 24 charge, imposes 4.2sec cooldown and stuns2.6sec")
 	w.pulse()
-	check(w.battery == 82, "Cooldown rejects pulse spam")
+	check(w.battery == 76, "Cooldown rejects pulse spam")
 	var enemy_before: Vector2 = w.enemies[0].pos
 	w.step(0.5)
-	check(w.enemies[0].pos == enemy_before and is_equal_approx(w.enemies[0].stun,4.0), "Stunned enemy remains still; timer expires")
+	check(w.enemies[0].pos == enemy_before and is_equal_approx(w.enemies[0].stun,2.1), "Stunned enemy remains still; timer expires")
 	w.cooldown = 0
-	w.battery = 17
+	w.battery = 23
 	w.pulse()
-	check(w.battery == 17 and w.cooldown == 0, "Insufficient charge rejects pulse")
+	check(w.battery == 23 and w.cooldown == 0, "Insufficient charge rejects pulse")
 	w.battery = 100
 	w.is_hiding = true
 	w.pulse()
 	check(w.battery == 100, "Hidden player cannot pulse")
+	# Recovery requires exposure; movement cancels rather than silently collecting.
+	fresh(w)
+	w.enemies.clear()
+	w.player = w.fragments[0]
+	w.pulse()
+	w.interact()
+	w.step(0.4)
+	check(w.collected == 0 and w.recovery_progress > 0, "Recovery requires stationary exposure rather than instant pickup")
+	w.move_override = Vector2.RIGHT
+	w.step(0.1)
+	check(w.collected == 0 and w.recovery_progress == 0, "Movement cancels incomplete recovery")
+	w.move_override = Vector2.ZERO
+	w.player = w.fragments[0]
+	w.interact()
+	for frame in 58: w.step(1.0/60.0)
+	check(w.collected == 1 and w.recovered_names.size() == 1, "Restarted recovery collects exactly one name")
+	fresh(w,9)
+	w.pulse()
+	for enemy in w.enemies:
+		check(enemy.target == w.player and enemy.alert == 6, "Pulse noise attracts even distant enemies to last pulse position")
+	w.gentle = true
+	w.cooldown = 0
+	w.enemies[0].pos = w.player+Vector2(50,0)
+	w.pulse()
+	check(w.enemies[0].stun == 4.5, "Gentle mode retains forgiving4.5sec stun")
+	# Mobile vector input is normalized and shares collision and sneak rules.
+	fresh(w)
+	w.test_mode = false
+	w.touch_direction = Vector2(4,4)
+	check(is_equal_approx(w.direction().length(),1.0), "Touch direction is normalized to prevent diagonal speed boost")
+	w.touch_direction = Vector2.RIGHT
+	w.touch_sneak = false
+	var touch_origin: Vector2 = w.player
+	w.step(0.1)
+	check(is_equal_approx(w.player.distance_to(touch_origin),8.8), "Touch movement uses88px normal speed")
+	w.touch_sneak = true
+	touch_origin = w.player
+	w.step(0.1)
+	check(is_equal_approx(w.player.distance_to(touch_origin),5.6), "Touch quiet mode uses56px sneak speed")
+	w.touch_direction = Vector2.ZERO
+	w.touch_sneak = false
+	w.test_mode = true
 	# Cabinet interaction, damage protection, frozen movement.
 	fresh(w)
 	w.player = w.cabinets[0]
@@ -159,10 +214,13 @@ func run() -> void:
 	var initial: Vector2 = w.enemies[0].pos
 	for n in 1200:
 		w.step(1.0/60.0)
-		for e in w.enemies: check(not w.astar.is_point_solid(w.cell(e.pos)), "Enemy remains on walkable cells")
+		for e in w.enemies:
+			check(not w.astar.is_point_solid(w.cell(e.pos)), "Enemy remains on walkable cells")
+			check(w.passable(e.pos), "Enemy body stays clear of solid walls at "+str(e.pos)+" cell "+str(w.cell(e.pos)))
 	check(w.enemies[0].pos.distance_to(initial) > 32, "Enemy patrol actually advances")
 	# Chasing recomputes a moving target; same-cell chase advances without an A* hop.
 	fresh(w)
+	w.enemies[0].pos = w.center(Vector2i(24,2))
 	w.player = w.center(Vector2i(23,2))
 	w.step(0.1)
 	check(w.enemies[0].alert > 0, "Nearby player triggers chase")
@@ -172,6 +230,7 @@ func run() -> void:
 	w.enemies[0].pos = w.player+Vector2(12,0)
 	w.enemies[0].stun = 0
 	w.enemies[0].repath = 0
+	w.enemies[0].path = PackedVector2Array() # Fresh same-cell fixture, no path from prior position.
 	w.invincible = 10
 	var close_distance: float = w.enemies[0].pos.distance_to(w.player)
 	w.step(0.1)
@@ -181,6 +240,46 @@ func run() -> void:
 	w.alarm_timer = 11.99
 	w.step(0.02)
 	check(w.enemies[0].target == w.player and w.enemies[0].alert > 0, "Alarm attracts enemy across the entire ward")
+	# Walls stop sight, while loud movement remains audible through them.
+	fresh(w)
+	w.player = w.center(Vector2i(5,3))
+	w.enemies[0].pos = w.center(Vector2i(8,3))
+	w.enemies[0].target = w.hatch
+	w.enemies[0].alert = 0
+	w.step(1.0/60.0)
+	check(w.enemies[0].alert == 0, "Solid shelving blocks stationary-player sight")
+	w.move_override = Vector2.RIGHT
+	w.touch_sneak = true
+	w.step(1.0/60.0)
+	check(w.enemies[0].alert == 0, "Quiet movement behind wall remains outside45px hearing")
+	w.touch_sneak = false
+	w.step(1.0/60.0)
+	check(w.enemies[0].alert > 0, "Loud movement behind wall is audible within160px")
+	# Later pursuers close an open-corridor gap; hiding is safer than camping.
+	fresh(w,9)
+	w.enemies.resize(1)
+	w.player = w.center(Vector2i(2,8))
+	w.enemies[0].pos = w.center(Vector2i(2,5))
+	w.move_override = Vector2.DOWN
+	var chase_gap: float = w.enemies[0].pos.distance_to(w.player)
+	for frame in 90: w.step(1.0/60.0)
+	check(w.enemies[0].pos.distance_to(w.player) < chase_gap, "Final-ward pursuit closes gap on straight noisy running")
+	fresh(w,9)
+	w.enemies.resize(1)
+	w.player = w.center(Vector2i(2,8))
+	w.enemies[0].pos = w.player+Vector2(15,0)
+	w.invincible = 0
+	for frame in 900:
+		if w.running: w.step(1.0/60.0)
+	check(not w.running and w.health <= 0, "Camping exposed beside a pursuer eventually fails")
+	fresh(w,9)
+	w.enemies.resize(1)
+	w.player = w.cabinets[0]
+	w.interact()
+	w.enemies[0].pos = w.player+Vector2(15,0)
+	w.invincible = 0
+	for frame in 900: w.step(1.0/60.0)
+	check(w.running and w.health == 100, "Cabinet protects throughout equivalent exposure window")
 	# Hazard phases, gentle scaling, low-power ward battery drain, recharge.
 	fresh(w,3)
 	w.enemies.clear()
@@ -207,14 +306,15 @@ func run() -> void:
 	w.battery = 50
 	w.interact()
 	check(w.battery == 50 and w.health == 75, "Station cooldown prevents repeat refill")
+	var failures_before_contact := caught_count
 	fresh(w)
 	w.health = 1
 	w.invincible = 0
 	w.enemies[0].pos = w.player
 	w.step(0.01)
-	check(not w.running and caught_count == 1 and w.deaths > 0, "Lethal contact emits failure and stops simulation")
+	check(not w.running and caught_count == failures_before_contact+1 and w.deaths > 0, "Lethal contact emits failure and stops simulation")
 	w._process(1)
-	check(caught_count == 1, "Stopped simulation emits no duplicate failure")
+	check(caught_count == failures_before_contact+1, "Stopped simulation emits no duplicate failure")
 	# Full objective route with active enemies, hazards and normal resource rules.
 	# Deterministic pilot chooses shortest record order and pulses nearby enemies.
 	for index in 10:
@@ -251,6 +351,10 @@ func run() -> void:
 					active_steps += 1
 				w.pulse()
 			w.interact()
+			if objective < 3:
+				for frame in 58:
+					if w.running: w.step(1.0/60.0)
+					active_steps += 1
 		check(reached and w.collected == 3 and not w.running and w.health > 0, "Ward %d normal-mode active-enemy full traversal succeeds" % (index+1))
 		print("PLAYTHROUGH ward=%02d seconds=%.2f resolve=%.1f charge=%.1f records=%d" % [index+1,active_steps/60.0,w.health,w.battery,w.collected])
 	stop_audio(w)
@@ -285,8 +389,8 @@ func test_application() -> void:
 			break
 	check(app.screen == "profile", "Ward select cannot bypass new-player profile")
 	app.begin_campaign()
-	check(app.screen == "profile" and not app.demo, "First campaign opens local profile")
-	app.profile = "QA 테스트"
+	check(app.screen == "profile", "First campaign opens local profile")
+	app.profile = "QA Pilot"
 	app.begin_campaign()
 	check(app.screen == "tutorial" and app.tutorial_step == 0, "First named campaign opens six-page tutorial")
 	for i in 6:
@@ -298,25 +402,15 @@ func test_application() -> void:
 	app.unlocked = 6
 	app.checkpoint = 6
 	app.memories = [0,1,2,3,4,5]
-	app.lang = 1
 	app.gentle = true
 	app.volume = 0.35
 	app.motion = false
 	app.high_visibility = true
 	app.save()
 	var saved: PackedByteArray = FileAccess.get_file_as_bytes("user://afterhours.cfg")
-	app.begin_demo()
-	check(app.demo and app.intro_index == 0, "Demo always starts at first ward")
-	for i in 3:
-		app.start_ward(i)
-		app.ward.set_process(false)
-		app.on_finished()
-		check(app.screen == "memory", "Demo ward %d shows memory" % (i+1))
-	check(FileAccess.get_file_as_bytes("user://afterhours.cfg") == saved and app.checkpoint == 6 and app.unlocked == 6 and app.memories.size() == 6, "Demo completion preserves campaign save byte-for-byte")
-	app.show_demo_end()
-	check(app.screen == "demo_end", "Demo completion screen builds")
+	app.show_menu()
 	app.begin_campaign()
-	check(not app.demo and app.intro_index == 6, "Campaign continues at preserved checkpoint after demo")
+	check(app.intro_index == 6 and FileAccess.get_file_as_bytes("user://afterhours.cfg") == saved, "Campaign resumes preserved checkpoint without rewriting progress")
 	app.start_ward(6)
 	check(app.ward.high_visibility and not app.ward.effects and app.ward.gentle, "Ward entry applies visibility, motion and gentle preferences")
 	app.ward.set_process(false)
@@ -333,16 +427,49 @@ func test_application() -> void:
 	check(app.screen == "pause" and not app.ward.running and app.ward.player == p and app.ward.battery == battery,"Pause freezes ward movement and resources")
 	app.show_settings(true)
 	check(not app.ward.running,"Pause settings keep simulation frozen")
-	app.switch_language()
 	var back: Button
 	for child in app.ui.get_children():
-		if child is Button and child.visible and child.text in ["← Back","← 뒤로"]: back = child
-	check(back != null,"Localized settings expose back button")
+		if child is Button and child.visible and child.text in ["← Back"]: back = child
+	check(back != null,"Pause settings expose back button")
 	if back:
 		back.pressed.emit()
-		check(app.screen == "pause", "Language switch in pause settings preserves return-to-pause context")
+		check(app.screen == "pause", "Pause settings preserve return-to-pause context")
 	app._unhandled_key_input(escape)
 	check(app.screen == "game" and app.ward.running and app.ward.player == p,"Resume retains ward state")
+	# Browser bridge commands use the same game state and support touch cleanup.
+	app.ward.test_mode = false
+	app.browser_command([JSON.stringify({"command":"move","x":4,"y":4})])
+	check(is_equal_approx(app.ward.touch_direction.length(),1.0), "Browser move clamps and normalizes touch vector")
+	app.browser_command([JSON.stringify({"command":"sneak","value":true})])
+	check(app.ward.touch_sneak, "Browser quiet command reaches simulation")
+	app._notification(Node.NOTIFICATION_APPLICATION_FOCUS_OUT)
+	check(app.screen == "pause" and not app.ward.running and app.ward.touch_direction == Vector2.ZERO and not app.ward.touch_sneak, "Focus loss pauses and clears held touch controls")
+	var paused_charge: float = app.ward.battery
+	app.browser_command([JSON.stringify({"command":"pulse"})])
+	check(app.ward.battery == paused_charge, "Browser pulse is rejected while paused")
+	app.browser_command([JSON.stringify({"command":"pause"})])
+	check(app.screen == "game" and app.ward.running, "Browser pause command resumes paused game")
+	app.browser_command([JSON.stringify({"command":"layout","value":true})])
+	await process_frame
+	await process_frame
+	check(app.compact_layout and app.ward.player == p, "Compact touch HUD preserves active ward position")
+	check_labels(app,"Compact game HUD")
+	check(app.hud_labels.has("charge_bar") and app.hud_labels.has("resolve_bar"), "Resource bars exist in compact HUD")
+	app.ward.battery = 37
+	app.ward.health = 61
+	app.update_hud()
+	check(app.hud_labels.charge_bar.value == 37 and app.hud_labels.resolve_bar.value == 61, "HUD resource bars mirror actual resources")
+	app.browser_command([JSON.stringify({"command":"layout","value":false})])
+	app.browser_command([JSON.stringify({"command":"mute","value":true})])
+	check(AudioServer.is_bus_mute(0), "Browser mute affects master audio bus")
+	app.browser_command([JSON.stringify({"command":"mute","value":false})])
+	check(not AudioServer.is_bus_mute(0), "Browser unmute restores master audio")
+	var before_reset: PackedByteArray = FileAccess.get_file_as_bytes("user://afterhours.cfg")
+	app.browser_command([JSON.stringify({"command":"reset"})])
+	check(app.screen == "reset" and FileAccess.get_file_as_bytes("user://afterhours.cfg") == before_reset, "Browser reset opens review screen before deleting progress")
+	app.resume()
+	app.ward.test_mode = true
+	app.ward.move_override = Vector2.ZERO
 	app.on_finished()
 	check(app.checkpoint == 7 and app.unlocked == 7 and app.memories.has(6),"Campaign completion advances checkpoint and archive")
 	app.show_menu()
@@ -350,26 +477,30 @@ func test_application() -> void:
 	root.add_child(loaded)
 	loaded.set_process(false)
 	loaded.ward.set_process(false)
-	check(loaded.profile == "QA 테스트" and loaded.checkpoint == 7 and loaded.unlocked == 7 and loaded.memories.has(6),"Persisted profile progress reloads")
-	check(loaded.lang == app.lang and loaded.gentle and is_equal_approx(loaded.volume,0.35) and not loaded.motion and loaded.high_visibility,"Persisted language/accessibility/audio reloads")
-	for language in 2:
-		app.lang = language
+	check(loaded.profile == "QA Pilot" and loaded.checkpoint == 7 and loaded.unlocked == 7 and loaded.memories.has(6),"Persisted profile progress reloads")
+	check(loaded.gentle and is_equal_approx(loaded.volume,0.35) and not loaded.motion and loaded.high_visibility,"Persisted accessibility and audio settings reload")
+	for ward_index in 10:
+		app.show_intro(ward_index)
+		await process_frame
+		await process_frame
+		check_labels(app,"Ward %d English briefing" % (ward_index+1))
+	for language in 1:
 		for page in 6:
 			app.tutorial_step = page
 			app.show_tutorial()
 			await process_frame
 			await process_frame
-			check_labels(app,"Language %d tutorial %d" % [language,page+1])
-		for view in ["show_menu","show_profile","show_tutorial","show_wards","show_archive","show_settings","show_credits","show_failure","show_demo_end","show_choice"]:
+			check_labels(app,"English UI %d tutorial %d" % [language,page+1])
+		for view in ["show_menu","show_profile","show_tutorial","show_wards","show_archive","show_settings","show_credits","show_failure","show_choice"]:
 			app.call(view)
 			await process_frame
 			await process_frame
-			check_labels(app,"Language %d %s" % [language,view])
-			check(not app.ui.get_children().is_empty(), "Language %d %s builds" % [language,view])
+			check_labels(app,"English UI %d %s" % [language,view])
+			check(not app.ui.get_children().is_empty(), "English UI %d %s builds" % [language,view])
 		app.show_ending(true)
-		check(app.screen == "ending" and app.session_ending == "remember","Language %d remember ending" % language)
+		check(app.screen == "ending" and app.session_ending == "remember","English UI %d remember ending" % language)
 		app.show_ending(false)
-		check(app.screen == "ending" and app.session_ending == "forget","Language %d forget ending" % language)
+		check(app.screen == "ending" and app.session_ending == "forget","English UI %d forget ending" % language)
 	var ending_reload = Main.new()
 	root.add_child(ending_reload)
 	ending_reload.set_process(false)
@@ -393,12 +524,14 @@ func test_application() -> void:
 	sanitized.set_process(false)
 	sanitized.ward.set_process(false)
 	check(sanitized.profile.length() == 20 and sanitized.unlocked == 9 and sanitized.checkpoint == 0, "Local profile and checkpoint values bounded")
-	check(sanitized.memories == [0,9] and sanitized.lang == 1 and sanitized.volume == 1, "Invalid archive/language/volume sanitized")
+	check(sanitized.memories == [0,9] and sanitized.volume == 1, "Invalid archive and volume sanitized")
 	stop_audio(sanitized)
 	sanitized.queue_free()
 	stop_audio(loaded)
 	stop_audio(app)
-	await create_timer(0.05).timeout
+	await create_timer(0.12).timeout
 	loaded.queue_free()
 	app.queue_free()
 	await process_frame
+	await process_frame
+	await create_timer(0.05).timeout

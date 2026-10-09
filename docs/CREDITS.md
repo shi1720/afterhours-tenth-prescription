@@ -1,17 +1,19 @@
-# Credits and disclosure
+# Credits
 
-**Shivam Gupta** - creator and product direction.
+**Shivam Gupta**: creator and product direction.
 
-AI tools assisted implementation, narrative/localization drafting, documentation, procedural pixel drawing and synthesized audio. This credit does not attribute specific manual coding tasks to Shivam that have not been documented. The supplied request defined the horror theme, Godot, pixel art, ten levels, bilingual interface and web play.
+AI assistance supported implementation, narrative, original procedural pixel art, synthesized audio, documentation and testing. Attribution does not claim that particular programming or art tasks were completed manually.
 
-## Assets
+## Original assets
 
-The tiles, character animation sheets, title illustration, icon, logo and audio were originally generated for this project by procedural drawing and sound synthesis. No copied commercial game sprites or sampled third-party recordings are claimed. See `assets/LICENSE_ASSETS.md` for the asset author's provenance statement.
+Gameplay tiles, character sheets, ghost variants, environmental setpieces, title illustration, branding and sound cues were created for this project through original procedural drawing and sound synthesis. No third-party game sprites or sampled recordings were used. See `assets/LICENSE_ASSETS.md` and the checked-in generation scripts for provenance.
 
-Fonts: Noto Sans Korean and Space Mono; bundled OFL texts are in `assets/fonts/`. Godot is third-party software distributed under its own license. Retain all third-party notices when packaging exports.
+## Software and fonts
 
-Project code and original assets: copyright 2026 Shivam Gupta, all rights reserved unless explicitly licensed otherwise. Do not infer an open-source license from public source availability.
+Godot 4.5 retains its MIT license and third-party notices, included in this directory. Bundled fonts retain their SIL Open Font License notices in `assets/fonts/`. Project code and original assets are copyright 2026 Shivam Gupta unless an individual file states otherwise. No open-source license is implied.
 
-## Jam disclosure
+The story, pharmacy and recovered names are fictional. No medical advice or real patient information is included.
 
-The full organizer rules were not supplied. Check restrictions on AI-assisted content, engine versions, prior assets, team size, submission deadlines and licensing. Disclose assistance using the organizer's requested form. No eligibility certification is asserted here.
+## Official video voice
+
+The current official gameplay video uses generic AndrewNeural synthetic narration. It is not Shivam Gupta's voice, a voice clone or a recording of him speaking.

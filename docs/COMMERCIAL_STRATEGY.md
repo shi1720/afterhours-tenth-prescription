@@ -1,25 +1,25 @@
-# A small game with a clear business hypothesis
+# A complete game, sold once
 
-AFTERHOURS competes for an evening of attention through a clear hook: a haunted pharmacy, light that buys time, and a humane story about forgotten names. Its advantage must come from authored tension, a recognizable world, readable presentation and players wanting to share the experience. No technical moat or market-size claim is asserted.
+AFTERHOURS has a clear product premise: a haunted pharmacy, a light that advances the objective while attracting danger, and a humane story about forgotten names. Its potential advantage comes from distinctive atmosphere, authored encounters and players wanting to recommend the experience. No technical moat or proven demand is claimed.
 
-## Current release
+## Current product
 
-The game-jam version includes all ten wards free, plus a separate short demo. It targets desktop keyboard play in a web browser and a Godot source release. It has local profiles and saves. It has no server, payment flow, analytics backend or subscription. This is an achievable finite product, not a pharmacy operations platform.
+The browser release contains the complete ten-room campaign. It has local saves and no payments, subscriptions, advertising or server account system. Static delivery and original self-contained assets avoid a paid inference service during play. Hosting, development, testing, storefront fees and marketing still have costs.
 
-## Future product hypothesis
+## Planned distribution
 
-After observing independent players, consider an expanded premium edition with new layouts, richer character animation, additional story chapters and broader accessibility. A free browser prologue can lower the effort needed to try it. A tentative US$4.99-7.99 price range is a test, not validated willingness to pay. Do not advertise a fixed playtime until timed playtests establish one.
+An expanded edition could sell once through itch.io and later Steam, subject to their publishing requirements. These are planned channels, not approved storefront listings. Richer animation, more elaborate encounters and additional story chapters would need development and testing before a paid release.
 
-Sell a complete experience. Avoid disruptive ads, consumable purchases, paid difficulty relief and a recurring subscription. Optional future chapters should stand on their own. Localization and challenge variants can extend value without multiplying infrastructure costs.
+A tentative US$4.99 to US$7.99 price range is a research hypothesis. No revenue, conversion rate, market-size or willingness-to-pay evidence is asserted. A future free prologue could help players assess the tone before buying. The current browser campaign remains complete.
 
-## Validation before investment
+Avoid consumable purchases, paid difficulty relief and disruptive ads. Any additional chapters should offer a complete experience of their own.
 
-Observe at least ten new players across both languages. Record whether they understand the first objective, finish ward one, choose to continue, and explain the final emotional premise. Ask where they became confused and whether they would recommend the game. Ask purchase-intent questions after play, separating stated intent from actual sales. Do not collect personal data without consent or invent retention metrics.
+## Evidence before investment
 
-A useful first milestone is that most testers can complete the onboarding without verbal help and voluntarily attempt another ward. Set numerical targets after a baseline session rather than presenting arbitrary targets as achieved evidence. If players stop because of navigation or unclear damage, fix that before expanding content.
+Observe at least ten new players. Check whether they understand the first objective without explanation, complete the first room and voluntarily continue. Ask where danger felt unclear or unfair, and whether the ending's premise made sense. Measure actual completion times before advertising playtime.
 
-## Cost and distribution
+After play, ask whether they would recommend the game and investigate purchase intent. Keep stated intent separate from actual sales. Fix unclear navigation, poor touch interaction and unearned difficulty before investing in more content. No player study has been completed for the revised release.
 
-Godot, self-contained assets and static web distribution avoid a paid inference service for every play. Hosting, storefront fees, domain costs, localization review, accessibility testing, marketing and development time still cost money; no zero-cost business claim is made. Static delivery is operationally simple, but browser compatibility and save persistence still need support.
+## Release sequence
 
-Launch sequence: finish release checks; publish a public demo/campaign; invite opt-in playtesting; fix clarity and difficulty; test messaging and pricing; then decide whether a paid expansion is justified. This proposal does not assume storefront approval, a signed publishing deal or proven demand.
+Verify the current exported build and saves. Observe players. Refine clarity, tension and pacing. Test product messaging and price. Decide whether a premium expansion merits the investment. This plan assumes neither a publisher agreement nor storefront acceptance.

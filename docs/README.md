@@ -1,25 +1,24 @@
-# AFTERHOURS submission desk
+# AFTERHOURS release desk
 
-Start with the press kit for the complete pitch, then use the editable documents when recording or submitting.
+[Play in your browser](https://afterhours-prescription.web.app) · [Source repository](https://github.com/shi1720/afterhours-tenth-prescription)
 
-| File | Purpose |
+[Official gameplay video](https://youtu.be/L6kt6Z9vEp4) has a YouTube release address. Public status requires confirmation. The 67-second first-three-ward montage uses generic AndrewNeural synthetic narration, not Shivam Gupta's voice.
+
+| Document | Purpose |
 | --- | --- |
-| `AFTERHOURS_GAMEPLAY.mp4` | Actual two-minute 1280×720 gameplay recording with original audio |
-| `BROWSER_QA.md` | Real Chrome acceptance observations and native export boundaries |
-| `TEST_REPORT.md` | 4,945-assertion native integration result and reproducible command |
+| `SUBMISSION.md` | Concise product description and feature copy |
+| `RELEASE_NOTES.md` | Current mechanics, controls and save boundaries |
+| `RELEASE_CHECKLIST.md` | Current evidence and remaining verification |
+| `TEST_REPORT.md` | Current native suite: 9,043 assertions, zero failures |
 | `HEADLESS_TEST_LOG.txt` | Captured native assertion output |
-| `INDEPENDENT_REVIEW.md` | Separate AI-assisted review, approximately 8/10; not official judging |
-| `AFTERHOURS_PRESS_KIT.pdf` | Polished printable game overview, commercial plan and recording guide |
-| `SUBMISSION.md` | Paste-ready title, descriptions, feature list and disclosure |
-| `VIDEO_SCRIPT.md` | Verbatim two-minute narration matched to the supplied gameplay montage |
-| `AFTERHOURS_NARRATION_EN.srt` | Draft English voiceover captions; align after narration recording |
-| `AFTERHOURS_NARRATION_KO.srt` | Draft Korean voiceover captions; alignment and native review recommended |
-| `RECORDING_GUIDE.md` | Exact generated-montage sequence, reproducibility and editorial preview disclosure |
-| `COMMERCIAL_STRATEGY.md` | Finite product scope, distribution and validation hypotheses |
-| `QA_SELF_REVIEW.md` | Explicitly labeled internal rubric and release checks |
-| `RELEASE_NOTES.md` | Controls, accessibility, local saves and known scope limits |
-| `CREDITS.md` | Honest creator attribution and asset/license notes |
+| `JUDGE_REVIEW.md` | Current independent AI qualitative review |
+| `VIDEO_SCRIPT.md` | Exact spoken script, voice disclosure and final edit map |
+| `NARRATION.txt` | Exact current narration text |
+| `AFTERHOURS_NARRATION_EN.srt` | Final timed English captions |
+| `RECORDING_GUIDE.md` | Current video provenance and assembly details |
+| `COMMERCIAL_STRATEGY.md` | Planned premium distribution and validation approach |
+| `CREDITS.md` | Creator attribution and licenses |
+| `WEB_SHELL.md` | Browser player, overlay touch controls and deployment |
+| `QA_SELF_REVIEW.md` | Product criteria and evidence boundaries |
 
-The game-jam version includes all ten wards. The separate demo is an introduction, not the only free content in this submission. No online account service, cloud saving, medical guidance or live-service platform is claimed.
-
-Play [the browser release](https://shi1720.github.io/afterhours-tenth-prescription/). Source and published packages: [GitHub repository](https://github.com/shi1720/afterhours-tenth-prescription).
+`BROWSER_QA.md` and `INDEPENDENT_REVIEW.md` contain historical observations. The current release checklist records later Firebase keyboard and landscape-emulation evidence. Earlier MP4, PDF, PPTX and screenshot montage files require replacement or review before representing the revised product. The current official video is `AFTERHOURS_OFFICIAL_DEMO.mp4` in the deliverables directory.

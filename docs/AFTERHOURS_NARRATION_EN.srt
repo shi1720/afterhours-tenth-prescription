@@ -1,67 +1,77 @@
 1
-00:00:00,000 --> 00:00:06,000
-My name is Shivam Gupta, and this is AFTERHOURS: The Tenth Prescription.
+00:00:00,050 --> 00:00:02,461
+The pharmacy closed ten years ago.
 
 2
-00:00:06,000 --> 00:00:17,000
-The pharmacy closed ten years ago. Tonight, its lights came back on. Your
-light reveals sealed names, but it is also what keeps the shadows back.
+00:00:02,461 --> 00:00:04,600
+Tonight, its lights came back on.
 
 3
-00:00:17,000 --> 00:00:33,670
-Explore each ward, reveal three prescriptions with Space, then collect them
-with E. The same pulse stuns nearby shadows. Every pulse costs battery, so
-recovering a name and protecting yourself become the same difficult
-decision.
+00:00:04,600 --> 00:00:12,590
+This is Afterhours: The Tenth Prescription, a pixel art
+horror game about the people a place refuses to forget.
 
 4
-00:00:33,670 --> 00:00:39,670
-Bring every record to the hatch, and another piece of the pharmacy's story
-returns.
+00:00:12,590 --> 00:00:15,115
+You are the last pharmacist on the night shift.
 
 5
-00:00:39,670 --> 00:00:44,670
-Each of the ten authored wards introduces a new survival rule.
+00:00:15,115 --> 00:00:18,865
+Somewhere beneath the counter are thirty missing names.
 
 6
-00:00:44,670 --> 00:01:00,870
-Here, the alarm draws the shadows toward you. Watch the countdown and plan
-your route. Quieter movement, hiding places and charging stations give you
-options beyond the route shown here. Safety always comes with a decision.
+00:00:18,865 --> 00:00:23,492
+Recover them, ward by ward, before the Unnamed find you.
 
 7
-00:01:00,870 --> 00:01:06,870
-The records are not a shopping list. They preserve people the world has
-forgotten.
+00:00:23,492 --> 00:00:28,530
+Your scanner reveals sealed records and briefly stops
+nearby shadows.
 
 8
-00:01:06,870 --> 00:01:11,870
-English and Korean carry the same story, objectives and survival
-instructions.
+00:00:28,530 --> 00:00:33,041
+But every pulse costs charge, and the sound brings others
+closer.
 
 9
-00:01:11,870 --> 00:01:26,600
-In this later ward, timed darkness and hazardous residue change familiar
-routes. Light still reveals the way forward. The full game combines these
-threats across ten distinct layouts.
+00:00:33,041 --> 00:00:38,994
+Walking quietly, breaking their line of sight, and knowing
+when to hide can save your shift.
 
 10
-00:01:26,600 --> 00:01:37,600
-Recovered memories stay in your archive. Your sister, the last pharmacist,
-refused to let these names disappear. Local progress lets you return to
-finish what she began.
+00:00:38,994 --> 00:00:42,615
+Recovering a name takes a moment of stillness.
 
 11
-00:01:37,600 --> 00:01:42,600
-This is a preview of the final choice: what should the pharmacy remember?
+00:00:42,615 --> 00:00:47,719
+That small pause becomes a difficult choice when something
+is moving in the dark.
 
 12
-00:01:42,600 --> 00:01:52,600
-The jam version includes all ten wards. An expanded premium game is a future
-hypothesis, shaped by player feedback, rather than a promise of proven
-demand.
+00:00:47,719 --> 00:00:53,891
+Ten wards take you from a frozen dispensary to a flooded
+archive and the final prescription.
 
 13
-00:01:52,600 --> 00:01:59,833
-AFTERHOURS asks one question: when someone disappears from the records, who
-keeps the light on?
+00:00:53,891 --> 00:00:57,384
+Each carries a different fragment of your sister's story.
+
+14
+00:00:57,384 --> 00:00:58,608
+Follow the sound.
+
+15
+00:00:58,608 --> 00:00:59,845
+Keep the names.
+
+16
+00:00:59,845 --> 00:01:02,680
+Decide what the pharmacy should remember.
+
+17
+00:01:02,680 --> 00:01:04,690
+Play Afterhours in your browser.
+
+18
+00:01:04,690 --> 00:01:06,791
+Your shift begins at midnight.

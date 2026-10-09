@@ -1,0 +1,37 @@
+{
+  "hosting": {
+    "target": "afterhours",
+    "public": "export/web",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**", "**/*.import"],
+    "headers": [
+      {
+        "source": "**",
+        "headers": [
+          {"key": "Cache-Control", "value": "public, max-age=0, must-revalidate"},
+          {"key": "X-Content-Type-Options", "value": "nosniff"},
+          {"key": "Referrer-Policy", "value": "strict-origin-when-cross-origin"}
+        ]
+      },
+      {
+        "source": "/",
+        "headers": [{"key": "Cache-Control", "value": "no-store, max-age=0"}]
+      },
+      {
+        "source": "**/*.html",
+        "headers": [{"key": "Cache-Control", "value": "no-store, max-age=0"}]
+      },
+      {
+        "source": "**/*.wasm",
+        "headers": [{"key": "Content-Type", "value": "application/wasm"}]
+      },
+      {
+        "source": "**/*.pck",
+        "headers": [{"key": "Content-Type", "value": "application/octet-stream"}]
+      },
+      {
+        "source": "**/*.js",
+        "headers": [{"key": "Content-Type", "value": "application/javascript; charset=utf-8"}]
+      }
+    ]
+  }
+}

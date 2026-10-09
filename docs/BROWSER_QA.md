@@ -1,3 +1,5 @@
+> Historical evidence from the earlier release. These observations do not certify the revised English-only mechanics, touch player or current Firebase build. Use RELEASE_CHECKLIST.md for current verification.
+
 # Exported-browser acceptance record
 
 **Date:** 9 October 2026. **Browser:** real Google Chrome, operated through computer-use automation. **Build:** exported Godot Web build served at `http://localhost:8732`. This record summarizes observations reported by the build lead; it is separate from the native headless suite. It is not a human playtest or cross-browser certification.
